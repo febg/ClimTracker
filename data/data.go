@@ -7,12 +7,6 @@ import (
 )
 
 // Data represents the user climbing data from data base
-type Data interface {
-}
-
-//MySQLDB figure out later
-type MySQLDB struct {
-}
 
 // CheckUserExistance looks if client exists in users table
 func CheckUserExistance() {
