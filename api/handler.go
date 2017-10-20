@@ -28,7 +28,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("Vars: ", b)
+	fmt.Println("Vars: ", string(b))
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "{\"user_id\":\"%s\" \n \"user:password\":\"%s\" \n \"user_name\":\"%s\"}", uEmail, uPassword, uName)
 	return
