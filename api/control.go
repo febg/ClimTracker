@@ -22,7 +22,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 	c := Control{
 		Config: config,
 	}
-	defer log.Printf("[LOG] Started server controller { [Localhost: %v] }", c.Config.LocalMySQL)
+	defer log.Printf("[LOG] Started server controller { [LocalMySQL: %v] }", c.Config.LocalMySQL)
 	var err error
 	if !config.LocalMySQL {
 		c.DataBase, err = data.NewMySQL()
