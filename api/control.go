@@ -10,6 +10,7 @@ import (
 type Control struct {
 	Config   ControlConfig
 	DataBase data.MySQLDB
+	Data     data.MySQLDB
 }
 
 // ControlConfig configures the settings of the server controller
