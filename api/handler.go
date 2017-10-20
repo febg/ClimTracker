@@ -16,7 +16,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Bad Request")
 		return
 	}
-	log.Printf("[LOG] Registering User")
+	log.Printf("[LOG] Registering User: %v", reqBytes)
 
 	var action string
 	err = json.Unmarshal(reqBytes, &action)
