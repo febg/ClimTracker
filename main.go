@@ -17,7 +17,7 @@ func main() {
 	}
 
 	router := api.StandardRouter(c)
-	log.Println("[INFO] Listening on http://localhost:8080")
+	log.Println("[LOG] Listening on http://localhost:8080")
 	err = http.ListenAndServe(":8080", router)
 	if err != nil {
 		log.Fatal("ListenAndServe Error: ", err)

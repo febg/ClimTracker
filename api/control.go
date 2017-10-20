@@ -31,6 +31,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 			log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
 			return nil, err
 		}
+		log.Printf("[LOG] Stablished Connection to remote MySQL server [LocalMySQL: %v] }", c.DataBase)
 		return &c, nil
 	}
 	c.DataBase, err = data.NewLocalMySQL()
