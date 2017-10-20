@@ -2,26 +2,15 @@ package data
 
 import (
 	"database/sql"
-	"encoding/json"
 	"log"
 )
 
 //ValidateRagistration executes MySQL query to check user email in database
-func ValidateRagistration(DB *sql.DB, uData []byte) (bool, error) {
-	//  var rows *sql.Rows
-	var data UserData
-	err := json.Unmarshal(uData, &data)
-	if err != nil {
-		log.Printf("->[ERROR] Unable to Unmarshal user information: %v", err)
-		//w.WriteHeader(http.StatusBadRequest)
-		//fmt.Fprint(w, "Bad Request")
-		return false, err
-	}
-
-	qe := "'" + data.Email + "'"
+func ValidateRagistration(DB *sql.DB, uData UserData) (bool, error) {
+	qe := "'" + uData.Email + "'"
 	rows, err := DB.Query(`SELECT email FROM users WHERE email=` + qe + `;`)
 	if err != nil {
-		log.Printf("-> [ERROR] Registration Query: %v, %v", err, DB)
+		log.Printf("-> [ERROR] Validation Query: %v, %v", err, DB)
 		return false, err
 	}
 	defer rows.Close()
@@ -38,4 +27,22 @@ func ValidateRagistration(DB *sql.DB, uData []byte) (bool, error) {
 	}
 
 	return false, nil
+}
+
+// SendUser prepares and executes MySQL query to store user in data base
+func SendUser(DB *sql.DB, uData UserData) (bool, error) {
+	myQuery := `INSERT INTO users VALUES (NULL,` + `'` + uData.Name + `','` + uData.Email + `','` + uData.Password + `', NULL);`
+
+	stmt, err := DB.Prepare(myQuery)
+	if err != nil {
+		log.Printf("->[ERROR] Registration query preparation: %v", err)
+		return false, err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Printf("->[ERROR] Registration query execution: %v", err)
+		return false, err
+	}
+	return true, nil
 }
