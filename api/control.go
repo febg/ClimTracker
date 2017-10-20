@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/febg/Climbtracker/data"
@@ -9,7 +10,7 @@ import (
 // Control is
 type Control struct {
 	Config   ControlConfig
-	DataBase data.Data
+	DataBase *sql.DB
 }
 
 // ControlConfig configures the settings of the server controller
