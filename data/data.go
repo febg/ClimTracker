@@ -1,6 +1,10 @@
 package data
 
-import "database/sql"
+import (
+	"database/sql"
+
+	_ "github.com/go-sql-driver/mysql"
+)
 
 // Data represents the user climbing data from data base
 type Data interface {
