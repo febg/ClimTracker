@@ -10,17 +10,19 @@ import (
 
 // PostRegisterUser gets new user information from HTTP Post request and registers user in the main user Database
 func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
-	variables := mux.Vars(r)
-	usrID := variables["user_id"]
+	v := mux.Vars(r)
+	uEmail := v["user_email"]
+	uPassword := v["user_password"]
+	uName := v["user_name"]
 
-	if usrID == "" {
+	if uEmail == "" || uPassword == "" || uName == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprint(w, "ERROR: No User Id was given")
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "{\"user_id\":\"%s\"}", usrID)
+	fmt.Fprintf(w, "{\"user_id\":\"%s\"}", uEmail)
 	return
 }
 
