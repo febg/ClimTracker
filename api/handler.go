@@ -20,7 +20,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: No User Id was given")
 		return
 	}
-
+	fmt.Println("Vars: ", v)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "{\"user_id\":\"%s\" \n \"user:password\":\"%s\" \n \"user_name\":\"%s\"}", uEmail, uPassword, uName)
 	return
