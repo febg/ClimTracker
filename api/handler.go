@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -20,7 +21,14 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: No User Id was given")
 		return
 	}
-	fmt.Println("Vars: ", v)
+	b, err := json.Marshal(v)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Internal Server Error"))
+		return
+	}
+
+	fmt.Println("Vars: ", b)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "{\"user_id\":\"%s\" \n \"user:password\":\"%s\" \n \"user_name\":\"%s\"}", uEmail, uPassword, uName)
 	return
