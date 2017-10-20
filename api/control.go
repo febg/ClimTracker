@@ -27,11 +27,15 @@ func NewControl(config ControlConfig) (*Control, error) {
 	if config.LocalHost {
 		c.DataBase, err = data.NewMySQL()
 		if err != nil {
-			log.Printf("[ERROR] Could not initialized data storage sytem %v", err)
+			log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
+			return nil, err
 		}
+		return &c, nil
 	}
-	c.DataBase, err = data.NewLocalHost()
+	c.DataBase, err = data.NewLocalMySQL()
 	if err != nil {
-		log.Printf("[ERROR] Could not initialized data storage sytem %v", err)
+		log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
 	}
+
+	return &c, nil
 }
