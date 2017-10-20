@@ -10,7 +10,7 @@ import (
 func main() {
 
 	c, err := api.NewControl(api.ControlConfig{
-		LocalHost: true,
+		LocalMySQL: true,
 	})
 	if err != nil {
 		log.Fatal(err)
