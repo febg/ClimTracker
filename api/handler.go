@@ -1,30 +1,27 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 // PostRegisterUser gets new user information from HTTP Post request and registers user in the main user Database
 func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
-	reqBytes, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprint(w, "Bad Request")
-		return
-	}
-	log.Printf("[LOG] Registering User: %v", reqBytes)
+	variables := mux.Vars(r)
+	usrID := variables["user_id"]
 
-	var action string
-	err = json.Unmarshal(reqBytes, &action)
-	if err != nil {
+	if usrID == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprint(w, "Bad Request", err)
+		fmt.Fprint(w, "ERROR: No User Id was given")
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "{\"user_id\":\"%s\"}", usrID)
+	return
 }
 
 // PostLogInUser gets clients credentials from HTTP pPost request, compares it with existing credentials on database and grants or denies access
