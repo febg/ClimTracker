@@ -20,3 +20,9 @@ func NewMySQL() (*sql.DB, error) {
 	db, err := sql.Open("mysql", "awsuser:password@tcp(mydbinstance2.cr2vnklpvvxv.us-east-2.rds.amazonaws.com:3306)/mydb?charset=utf8")
 	return db, err
 }
+
+// NewLocalMySQL creates a connection to a MySQL database on local nerwork on port :3306
+func NewLocalMySQL() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:1692Ubc!@localhost:3306")
+	return db, err
+}

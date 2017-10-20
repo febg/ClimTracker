@@ -18,7 +18,7 @@ type ControlConfig struct {
 }
 
 // NewControl creates and initialzes a new server controller using conifg settings
-func NewControl(config ControlConfig) {
+func NewControl(config ControlConfig) (*Control, error) {
 	c := Control{
 		Config: config,
 	}
@@ -27,7 +27,11 @@ func NewControl(config ControlConfig) {
 	if config.LocalHost {
 		c.DataBase, err = data.NewMySQL()
 		if err != nil {
-			log.Printf("[ERROR] Could not ")
+			log.Printf("[ERROR] Could not initialized data storage sytem %v", err)
 		}
+	}
+	c.DataBase, err = data.NewLocalHost()
+	if err != nil {
+		log.Printf("[ERROR] Could not initialized data storage sytem %v", err)
 	}
 }
