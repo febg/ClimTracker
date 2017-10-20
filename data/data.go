@@ -3,7 +3,7 @@ package data
 import "database/sql"
 
 // Data represents the user climbing data from data base
-type Data struct {
+type Data interface {
 }
 
 //MySQLDB figure out later
@@ -11,7 +11,7 @@ type MySQLDB struct {
 }
 
 // CheckUserExistance looks if client exists in users table
-func (d *Data) CheckUserExistance() {
+func CheckUserExistance() {
 
 }
 
