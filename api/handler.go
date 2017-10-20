@@ -22,7 +22,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(reqBytes, &action)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprint(w, "Bad Request")
+		fmt.Fprint(w, "Bad Request", err)
 		return
 	}
 }
