@@ -24,7 +24,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 	}
 	defer log.Printf("[LOG] Started server controller { [Localhost: %v] }", c.Config.LocalHost)
 	var err error
-	if config.LocalHost {
+	if !config.LocalHost {
 		c.DataBase, err = data.NewMySQL()
 		if err != nil {
 			log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
