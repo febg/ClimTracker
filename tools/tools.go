@@ -11,7 +11,7 @@ func EncryptPassword(pwd string) string {
 	log.Print("-> [TOOLS] Encrypting user password")
 	bs, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
 	if err != nil {
-		log.Printf("--> [ERROR] Unable to encrypt password: %v", err)
+		log.Printf("-> [ERROR] %v", err)
 		return ""
 	}
 	return string(bs)
@@ -22,7 +22,7 @@ func ComparePasswords(pwd string, encPwd string) bool {
 	log.Print("-> [TOOLS] Decrypting user password...")
 	err := bcrypt.CompareHashAndPassword([]byte(encPwd), []byte(pwd))
 	if err != nil {
-		log.Printf("--> [ERROR] Unable to decrypt password: %v", err)
+		log.Printf("-> [ERROR] %v", err)
 		return false
 	}
 	return true

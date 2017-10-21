@@ -19,7 +19,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	log.Printf("[REQUEST] Registration request for user: %v", v["user_name"])
 	defer log.Printf("----------------------------------------")
-	defer log.Printf("[Rquest] Registration request terminated")
+	defer log.Printf("[REQUEST] Registration request terminated")
 	uD := data.UserData{
 		Name:     v["user_name"],
 		Email:    v["user_email"],
