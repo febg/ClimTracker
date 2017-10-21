@@ -17,16 +17,15 @@ import (
 // PostRegisterUser gets new user information from HTTP Post request and registers user in the main user Database
 func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
+	log.Printf("[REQUEST] Registration request for user: %v", v["user_name"])
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("-> [INFO] Registration request terminated")
 	uD := data.UserData{
 		Name:     v["user_name"],
 		Email:    v["user_email"],
 		Password: tools.EncryptPassword(v["user_password"]),
 		UserID:   uuid.NewV4().String(),
 	}
-
-	log.Printf("[REQUEST] Registration request for user: %v", uD.Email)
-	defer log.Printf("----------------------------------------")
-	defer log.Printf("-> [INFO] Registration request terminated")
 
 	if uD.Name == "" || uD.Email == "" || uD.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)

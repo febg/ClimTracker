@@ -112,13 +112,14 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return "", err
 	}
+	log.Printf("-> [LOG]")
 	hpwd, uID, err := getUserPassword(DB, data)
 	if err != nil {
 		log.Printf("->[ERROR] Unable to obtained stored password: %v", err)
 		return "", err
 	}
 	if !tools.ComparePasswords(data.Password, hpwd) {
-		log.Printf("->[ERROR] Unable to Verify password: %v", err)
+		log.Printf("->[ERROR] Unable to Verify password")
 		return "wpwd", nil
 	}
 	return uID, nil
