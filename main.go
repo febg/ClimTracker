@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	//"github.com/febg/Climbtracker/api"
-	"./api"
+	"github.com/febg/Climbtracker/api"
+	//"./api"
 )
 
 func main() {
@@ -16,7 +16,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	router := api.StandardRouter(c)
 	log.Println("[LOG] Listening on http://localhost:8080")
 	log.Println("----------------------------------------")

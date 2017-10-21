@@ -4,8 +4,10 @@ import (
 	"database/sql"
 	"log"
 
-	//"github.com/febg/Climbtracker/data"
-	"../data"
+	"github.com/jasonlvhit/gocron"
+
+	"github.com/febg/Climbtracker/data"
+	//"../data"
 )
 
 // Control is
@@ -41,5 +43,19 @@ func NewControl(config ControlConfig) (*Control, error) {
 		log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
+	//go InitCron(1, "tasktest")
 	return &c, nil
+}
+
+// InitCron Initializes cron to schedulle tasks
+func initCron(time int, t string) error {
+	var task interface{} = t
+	log.Printf("[LOG] Initialized cron for task: %v, every %v minutes", task, time)
+	gocron.Every(2).Seconds().Do(tasktest)
+	<-gocron.Start()
+	return nil
+}
+
+func tasktest() {
+	log.Printf("Cron")
 }

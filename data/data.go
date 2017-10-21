@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"log"
 
-	//"github.com/febg/Climbtracker/api"
-	//"github.com/febg/Climbtracker/data"
+	//"../tools"
+
+	"github.com/febg/Climbtracker/tools"
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,12 +18,13 @@ type UserData struct {
 	Name     string
 	Email    string
 	Password string
+	UserID   string
 }
 
 // CheckUserExistance looks if client exists in users table
 func CheckUserExistance(DB *sql.DB, uData UserData) (bool, error) {
-	log.Printf("-> [REQUEST] Cheking user existance in data base...")
-	if success, err := ValidateRagistration(DB, uData); success != true {
+	log.Printf("-> [INFO] Cheking user existance in data base...")
+	if success, err := validateRagistration(DB, uData); success != true {
 		if err != nil {
 			log.Printf("-> [ERROR] Unable to validate registration")
 			return false, err
@@ -30,17 +32,30 @@ func CheckUserExistance(DB *sql.DB, uData UserData) (bool, error) {
 		log.Printf("-> [ERROR] User already in data base")
 		return false, nil
 	}
-	log.Printf("-> [REQUEST] User not registered, preparing to store data")
+	log.Printf("-> [INFO] User not registered, preparing to store data")
 	return true, nil
 }
 
 // RegisterUser handles the storage of new user in database
 func RegisterUser(DB *sql.DB, uData UserData) (bool, error) {
-	log.Printf("-> [REQUEST] Registering in data base...")
-	if success, err := SendUser(DB, uData); err != nil {
+	log.Printf("-> [INFO] Registering in data base...")
+	if success, err := sendUser(DB, uData); err != nil {
 		log.Printf("-> [ERROR] Unable to store user in database")
 		return success, err
 	}
+	log.Printf("-> [INFO] User registered in database successfully")
+	return true, nil
+}
+
+// NewUserTable creates a unique table for each user in database
+func NewUserTable(DB *sql.DB, uData UserData) (bool, error) {
+	log.Printf("-> [INFO] Creating unique table for new user")
+	if newTable, err := createUserTable(DB, uData); newTable != true {
+		if err != nil {
+			log.Printf("-> [ERROR] Unable to create table")
+		}
+	}
+	log.Print("-> [INFO] Table created successfully")
 	return true, nil
 }
 
@@ -49,9 +64,7 @@ func NewUser(DB *sql.DB, uData []byte) (bool, error) {
 	var data UserData
 	err := json.Unmarshal(uData, &data)
 	if err != nil {
-		log.Printf("->[ERROR] Unable to Unmarshal user information: %v", err)
-		//w.WriteHeader(http.StatusBadRequest)
-		//fmt.Fprint(w, "Bad Request")
+		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return false, err
 	}
 	if s1, err := CheckUserExistance(DB, data); err != nil {
@@ -63,6 +76,14 @@ func NewUser(DB *sql.DB, uData []byte) (bool, error) {
 			}
 			return s2, nil
 		}
+		if s3, err := NewUserTable(DB, data); s3 != true {
+			if err != nil {
+				log.Printf("-> [ERROR] Unable to create new table")
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
 	}
 	return false, nil
 }
@@ -77,4 +98,28 @@ func NewMySQL() (*sql.DB, error) {
 func NewLocalMySQL() (*sql.DB, error) {
 	db, err := sql.Open("mysql", "root:1692Ubc!@tcp(localhost:3306)/test02?charset=utf8")
 	return db, err
+}
+
+func InitializeTables(tables []string) (int, error) {
+
+	return 0, nil
+}
+
+func LogIn(DB *sql.DB, uData []byte) (string, error) {
+	var data UserData
+	err := json.Unmarshal(uData, &data)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
+		return "", err
+	}
+	hpwd, uID, err := getUserPassword(DB, data)
+	if err != nil {
+		log.Printf("->[ERROR] Unable to obtained stored password: %v", err)
+		return "", err
+	}
+	if !tools.ComparePasswords(data.Password, hpwd) {
+		log.Printf("->[ERROR] Unable to Verify password: %v", err)
+		return "wpwd", nil
+	}
+	return uID, nil
 }
