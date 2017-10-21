@@ -7,7 +7,7 @@ import (
 
 	//"../tools"
 
-	"github.com/febg/Climbtracker/tools"
+	"github.com/febg/Climbtracker/Go/tools"
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 
 	_ "github.com/go-sql-driver/mysql"

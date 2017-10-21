@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/febg/Climbtracker/api"
+	"github.com/febg/Climbtracker/Go/api"
 	//"./api"
 )
 

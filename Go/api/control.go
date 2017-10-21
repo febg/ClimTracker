@@ -6,7 +6,7 @@ import (
 
 	"github.com/jasonlvhit/gocron"
 
-	"github.com/febg/Climbtracker/data"
+	"github.com/febg/Climbtracker/Go/data"
 	//"../data"
 )
 
