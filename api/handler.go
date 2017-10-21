@@ -19,7 +19,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	log.Printf("[REQUEST] Registration request for user: %v", v["user_name"])
 	defer log.Printf("----------------------------------------")
-	defer log.Printf("-> [INFO] Registration request terminated")
+	defer log.Printf("[Rquest] Registration request terminated")
 	uD := data.UserData{
 		Name:     v["user_name"],
 		Email:    v["user_email"],
@@ -66,7 +66,7 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("[REQUEST] Login request for user: %v", uD.Email)
 	defer log.Printf("----------------------------------------")
-	defer log.Printf("-> [INFO] Login request terminated")
+	defer log.Printf("[REQUEST] Login request terminated")
 
 	if uD.Email == "" || uD.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
