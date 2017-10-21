@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ClimbTracker' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ClimbTracker
+pod "SwiftSpinner"
+
+  target 'ClimbTrackerTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ClimbTrackerUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -1,0 +1,874 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		122C4BF277DC6D157EAC6130FBE89F77 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
+		1D27E8DDE0FADA7376280FC8C3C2A7CA /* Pods-ClimbTrackerUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C346AE92FB6ACFA67023971BE8064A25 /* Pods-ClimbTrackerUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		394D24511B68BC8E29587FD0DA9C9476 /* Pods-ClimbTrackerTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA690507FC9760579C9D39BBED90840 /* Pods-ClimbTrackerTests-dummy.m */; };
+		4BEB334B330F54138B2D215E7D445F0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		748D0558F21BE828E4F4165AA7394336 /* SwiftSpinner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A0FF0E9AE8E279A97B8A0B60E2C8DED8 /* SwiftSpinner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		791E1080222464F56B65F27EF554493B /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB720842853199FC95D876715F4C9EF7 /* SwiftSpinner.swift */; };
+		7E86F0D8D29116BD5ABBDD6B66E777EF /* Pods-ClimbTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C46B0CAA2545FA4613693F079D364B /* Pods-ClimbTracker-dummy.m */; };
+		854A2CF7BBDD77A43D85A2A0DCC0E83D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		8F593A86358E1F070CB0751ED18013EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		94EC1ED9A384C44A4C537EC6C6BFB562 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		978559199439E67584A0FD9F5E437040 /* Pods-ClimbTrackerUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2DF7C0C1E2A8ED6631ED7D14674AAB /* Pods-ClimbTrackerUITests-dummy.m */; };
+		A3B302F32B9F133567F482B988419798 /* Pods-ClimbTrackerTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 31CC4861DC91366C4AF2AB82FA52B3C2 /* Pods-ClimbTrackerTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0EB96AD7B82A17860E29FEA3B674DCF /* Pods-ClimbTracker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 89420C92C85076114C9A9E9EB2522BA0 /* Pods-ClimbTracker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E91C39623015210EFDCF7D4C23DC7339 /* SwiftSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = B54D6D2DC94C1AD34435AAF7688CC651 /* SwiftSpinner.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F1ABE53ABAE643C88761ACDEEC6DB9AC /* SwiftSpinner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CA62438C43ABF96C01849F2DDF78B2 /* SwiftSpinner-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D457CB2CD868C63C6C075D6034026BE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 245D647FEFB9AF35D8D2D946BA9D08FE;
+			remoteInfo = SwiftSpinner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0373F755AAECDBA8C4919F1336E0128D /* SwiftSpinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftSpinner.framework; path = SwiftSpinner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		050F00CC429BDF9729F15A75AA26111E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A821085DBADFDE3F0473CA1E586867B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AE74C2B095B0DCE43E72AE231462D25 /* Pods-ClimbTrackerTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTrackerTests-frameworks.sh"; sourceTree = "<group>"; };
+		0C06B71509E4E41CB0F49487CE7622B0 /* Pods-ClimbTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ClimbTracker.modulemap"; sourceTree = "<group>"; };
+		0DA235DF72F0472E0C153376EDB3D919 /* Pods-ClimbTrackerUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ClimbTrackerUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		123706ED6587390AA4F33957404E00CC /* Pods_ClimbTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ClimbTrackerTests.framework; path = "Pods-ClimbTrackerTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14E65913C363BC430C6A8EC6A8153A5A /* SwiftSpinner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftSpinner.modulemap; sourceTree = "<group>"; };
+		1C4F9E2835E8974A258172853ADF2C66 /* Pods-ClimbTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		24BFD6F3F9AD74854B6B0858D47579F4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2833E9F3101EEFF90C8113E824C91E2F /* Pods-ClimbTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTracker.release.xcconfig"; sourceTree = "<group>"; };
+		2B2DF7C0C1E2A8ED6631ED7D14674AAB /* Pods-ClimbTrackerUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ClimbTrackerUITests-dummy.m"; sourceTree = "<group>"; };
+		31CC4861DC91366C4AF2AB82FA52B3C2 /* Pods-ClimbTrackerTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ClimbTrackerTests-umbrella.h"; sourceTree = "<group>"; };
+		3CD1E33B9D907E3F94A683E3C3706D8F /* Pods-ClimbTrackerTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ClimbTrackerTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		40167D502EDC83FE9A1A46FCDB905976 /* Pods-ClimbTrackerTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ClimbTrackerTests.modulemap"; sourceTree = "<group>"; };
+		41A4ABCCD6F4C9A6BF0BD2C2596F4382 /* Pods-ClimbTracker-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ClimbTracker-acknowledgements.plist"; sourceTree = "<group>"; };
+		422786965421BC000E1879CE02CD307A /* Pods_ClimbTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ClimbTracker.framework; path = "Pods-ClimbTracker.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4EC34E2D432DC723A484C6A560C22D /* Pods-ClimbTrackerTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ClimbTrackerTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5584E9E3A32E9E251ADE190CCD5298E2 /* Pods-ClimbTrackerUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTrackerUITests-resources.sh"; sourceTree = "<group>"; };
+		55D2DB1F2558D58293D4416FEF725718 /* Pods-ClimbTracker-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTracker-frameworks.sh"; sourceTree = "<group>"; };
+		67C46B0CAA2545FA4613693F079D364B /* Pods-ClimbTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ClimbTracker-dummy.m"; sourceTree = "<group>"; };
+		6DC28A1C1A212A4227CADD926EFEA62C /* Pods-ClimbTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
+		770F050D638D79375AD320AB3F505134 /* SwiftSpinner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftSpinner-prefix.pch"; sourceTree = "<group>"; };
+		8688163C7E46728B16058429C86873C2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89420C92C85076114C9A9E9EB2522BA0 /* Pods-ClimbTracker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ClimbTracker-umbrella.h"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9AD7A6B431E6633521BBCB12FB4C1F10 /* Pods_ClimbTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ClimbTrackerUITests.framework; path = "Pods-ClimbTrackerUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0FF0E9AE8E279A97B8A0B60E2C8DED8 /* SwiftSpinner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftSpinner-umbrella.h"; sourceTree = "<group>"; };
+		A99C1326953CB04252D39C27FC519CE0 /* Pods-ClimbTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		ABA6292E4DC3B46EEA362FCF931BB182 /* Pods-ClimbTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE1692DF2BA1DB726847F0E1C397858A /* Pods-ClimbTracker-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ClimbTracker-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B54D6D2DC94C1AD34435AAF7688CC651 /* SwiftSpinner.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftSpinner.h; path = SwiftSpinner/SwiftSpinner.h; sourceTree = "<group>"; };
+		B5638C43EAD30BB7D2E102149E2FBEDA /* Pods-ClimbTrackerUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ClimbTrackerUITests.modulemap"; sourceTree = "<group>"; };
+		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C346AE92FB6ACFA67023971BE8064A25 /* Pods-ClimbTrackerUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ClimbTrackerUITests-umbrella.h"; sourceTree = "<group>"; };
+		C7F65B39513144FC5AB9CD6A9F510B13 /* SwiftSpinner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftSpinner.xcconfig; sourceTree = "<group>"; };
+		D0CA62438C43ABF96C01849F2DDF78B2 /* SwiftSpinner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftSpinner-dummy.m"; sourceTree = "<group>"; };
+		D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DFA690507FC9760579C9D39BBED90840 /* Pods-ClimbTrackerTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ClimbTrackerTests-dummy.m"; sourceTree = "<group>"; };
+		E2E4A27DB486B8F10CAE1BA236C911DC /* Pods-ClimbTrackerUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTrackerUITests-frameworks.sh"; sourceTree = "<group>"; };
+		EED62E8E4577F07D7574532E191A7A65 /* Pods-ClimbTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ClimbTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F0F6A2F5F87E07FB637CE542EC370FE1 /* Pods-ClimbTrackerUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ClimbTrackerUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		F21CC344EC01D48693CC703440752553 /* Pods-ClimbTracker-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTracker-resources.sh"; sourceTree = "<group>"; };
+		F2C57BB59BB14E9F4D2E73780766D1D2 /* Pods-ClimbTrackerTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ClimbTrackerTests-resources.sh"; sourceTree = "<group>"; };
+		FB720842853199FC95D876715F4C9EF7 /* SwiftSpinner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftSpinner.swift; path = SwiftSpinner/SwiftSpinner.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		353AA8720673D0C60AB813BF9F33B58E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F593A86358E1F070CB0751ED18013EA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC47C3A7A8E914BF1322AE4311AFC5CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				854A2CF7BBDD77A43D85A2A0DCC0E83D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFB4F089F25531B93C319D58F882A7B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BEB334B330F54138B2D215E7D445F0B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F382E747A3E8DD2D8CCE54B9F503FD9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94EC1ED9A384C44A4C537EC6C6BFB562 /* Foundation.framework in Frameworks */,
+				122C4BF277DC6D157EAC6130FBE89F77 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15EC13C8A7B4EE50A145D5863151A2A5 /* Pods-ClimbTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0A821085DBADFDE3F0473CA1E586867B /* Info.plist */,
+				40167D502EDC83FE9A1A46FCDB905976 /* Pods-ClimbTrackerTests.modulemap */,
+				4E4EC34E2D432DC723A484C6A560C22D /* Pods-ClimbTrackerTests-acknowledgements.markdown */,
+				3CD1E33B9D907E3F94A683E3C3706D8F /* Pods-ClimbTrackerTests-acknowledgements.plist */,
+				DFA690507FC9760579C9D39BBED90840 /* Pods-ClimbTrackerTests-dummy.m */,
+				0AE74C2B095B0DCE43E72AE231462D25 /* Pods-ClimbTrackerTests-frameworks.sh */,
+				F2C57BB59BB14E9F4D2E73780766D1D2 /* Pods-ClimbTrackerTests-resources.sh */,
+				31CC4861DC91366C4AF2AB82FA52B3C2 /* Pods-ClimbTrackerTests-umbrella.h */,
+				EED62E8E4577F07D7574532E191A7A65 /* Pods-ClimbTrackerTests.debug.xcconfig */,
+				6DC28A1C1A212A4227CADD926EFEA62C /* Pods-ClimbTrackerTests.release.xcconfig */,
+			);
+			name = "Pods-ClimbTrackerTests";
+			path = "Target Support Files/Pods-ClimbTrackerTests";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				438B396F6B4147076630CAEFE34282C1 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		438B396F6B4147076630CAEFE34282C1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */,
+				B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		4DD715C3D463865130174229A1C59020 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7EF33E5116FE45ACA4CD6348AD54CD70 /* SwiftSpinner */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6AF475036BBD70DA19DB86370AB78785 /* Pods-ClimbTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				050F00CC429BDF9729F15A75AA26111E /* Info.plist */,
+				B5638C43EAD30BB7D2E102149E2FBEDA /* Pods-ClimbTrackerUITests.modulemap */,
+				0DA235DF72F0472E0C153376EDB3D919 /* Pods-ClimbTrackerUITests-acknowledgements.markdown */,
+				F0F6A2F5F87E07FB637CE542EC370FE1 /* Pods-ClimbTrackerUITests-acknowledgements.plist */,
+				2B2DF7C0C1E2A8ED6631ED7D14674AAB /* Pods-ClimbTrackerUITests-dummy.m */,
+				E2E4A27DB486B8F10CAE1BA236C911DC /* Pods-ClimbTrackerUITests-frameworks.sh */,
+				5584E9E3A32E9E251ADE190CCD5298E2 /* Pods-ClimbTrackerUITests-resources.sh */,
+				C346AE92FB6ACFA67023971BE8064A25 /* Pods-ClimbTrackerUITests-umbrella.h */,
+				1C4F9E2835E8974A258172853ADF2C66 /* Pods-ClimbTrackerUITests.debug.xcconfig */,
+				ABA6292E4DC3B46EEA362FCF931BB182 /* Pods-ClimbTrackerUITests.release.xcconfig */,
+			);
+			name = "Pods-ClimbTrackerUITests";
+			path = "Target Support Files/Pods-ClimbTrackerUITests";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				4DD715C3D463865130174229A1C59020 /* Pods */,
+				E910948F97AE4F464E004B44A7266EEC /* Products */,
+				9DA8BCCE2315F33CB9BC7877F1C14F84 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		7EF33E5116FE45ACA4CD6348AD54CD70 /* SwiftSpinner */ = {
+			isa = PBXGroup;
+			children = (
+				B54D6D2DC94C1AD34435AAF7688CC651 /* SwiftSpinner.h */,
+				FB720842853199FC95D876715F4C9EF7 /* SwiftSpinner.swift */,
+				9E8346534EAAEB8899A3BEEE43DB8BE7 /* Support Files */,
+			);
+			name = SwiftSpinner;
+			path = SwiftSpinner;
+			sourceTree = "<group>";
+		};
+		9DA8BCCE2315F33CB9BC7877F1C14F84 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABEF62C30D131AAE7DE4452115770936 /* Pods-ClimbTracker */,
+				15EC13C8A7B4EE50A145D5863151A2A5 /* Pods-ClimbTrackerTests */,
+				6AF475036BBD70DA19DB86370AB78785 /* Pods-ClimbTrackerUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9E8346534EAAEB8899A3BEEE43DB8BE7 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				24BFD6F3F9AD74854B6B0858D47579F4 /* Info.plist */,
+				14E65913C363BC430C6A8EC6A8153A5A /* SwiftSpinner.modulemap */,
+				C7F65B39513144FC5AB9CD6A9F510B13 /* SwiftSpinner.xcconfig */,
+				D0CA62438C43ABF96C01849F2DDF78B2 /* SwiftSpinner-dummy.m */,
+				770F050D638D79375AD320AB3F505134 /* SwiftSpinner-prefix.pch */,
+				A0FF0E9AE8E279A97B8A0B60E2C8DED8 /* SwiftSpinner-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftSpinner";
+			sourceTree = "<group>";
+		};
+		ABEF62C30D131AAE7DE4452115770936 /* Pods-ClimbTracker */ = {
+			isa = PBXGroup;
+			children = (
+				8688163C7E46728B16058429C86873C2 /* Info.plist */,
+				0C06B71509E4E41CB0F49487CE7622B0 /* Pods-ClimbTracker.modulemap */,
+				AE1692DF2BA1DB726847F0E1C397858A /* Pods-ClimbTracker-acknowledgements.markdown */,
+				41A4ABCCD6F4C9A6BF0BD2C2596F4382 /* Pods-ClimbTracker-acknowledgements.plist */,
+				67C46B0CAA2545FA4613693F079D364B /* Pods-ClimbTracker-dummy.m */,
+				55D2DB1F2558D58293D4416FEF725718 /* Pods-ClimbTracker-frameworks.sh */,
+				F21CC344EC01D48693CC703440752553 /* Pods-ClimbTracker-resources.sh */,
+				89420C92C85076114C9A9E9EB2522BA0 /* Pods-ClimbTracker-umbrella.h */,
+				A99C1326953CB04252D39C27FC519CE0 /* Pods-ClimbTracker.debug.xcconfig */,
+				2833E9F3101EEFF90C8113E824C91E2F /* Pods-ClimbTracker.release.xcconfig */,
+			);
+			name = "Pods-ClimbTracker";
+			path = "Target Support Files/Pods-ClimbTracker";
+			sourceTree = "<group>";
+		};
+		E910948F97AE4F464E004B44A7266EEC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				422786965421BC000E1879CE02CD307A /* Pods_ClimbTracker.framework */,
+				123706ED6587390AA4F33957404E00CC /* Pods_ClimbTrackerTests.framework */,
+				9AD7A6B431E6633521BBCB12FB4C1F10 /* Pods_ClimbTrackerUITests.framework */,
+				0373F755AAECDBA8C4919F1336E0128D /* SwiftSpinner.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		62766C9C7B1E4290C874D704D1B75469 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0EB96AD7B82A17860E29FEA3B674DCF /* Pods-ClimbTracker-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7642D2B66C586330F5956DC3A77912A1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				748D0558F21BE828E4F4165AA7394336 /* SwiftSpinner-umbrella.h in Headers */,
+				E91C39623015210EFDCF7D4C23DC7339 /* SwiftSpinner.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BCB4CFCA024D1D4B006A9D332DF1BB4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D27E8DDE0FADA7376280FC8C3C2A7CA /* Pods-ClimbTrackerUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97FE2F35C035606D0DB59FD8CDA424EE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3B302F32B9F133567F482B988419798 /* Pods-ClimbTrackerTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		245D647FEFB9AF35D8D2D946BA9D08FE /* SwiftSpinner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C9E34CC881B7077BE238F3EB6046F4 /* Build configuration list for PBXNativeTarget "SwiftSpinner" */;
+			buildPhases = (
+				9F03B9C83A0D8197E28173F619BAE226 /* Sources */,
+				F382E747A3E8DD2D8CCE54B9F503FD9C /* Frameworks */,
+				7642D2B66C586330F5956DC3A77912A1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftSpinner;
+			productName = SwiftSpinner;
+			productReference = 0373F755AAECDBA8C4919F1336E0128D /* SwiftSpinner.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		28F01A5E046E90B0ECF53074E0549891 /* Pods-ClimbTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F46C511465D407ADAC43757B0B307E2 /* Build configuration list for PBXNativeTarget "Pods-ClimbTrackerTests" */;
+			buildPhases = (
+				E6A742F79340674B00A13BDAAD74A950 /* Sources */,
+				BC47C3A7A8E914BF1322AE4311AFC5CD /* Frameworks */,
+				97FE2F35C035606D0DB59FD8CDA424EE /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-ClimbTrackerTests";
+			productName = "Pods-ClimbTrackerTests";
+			productReference = 123706ED6587390AA4F33957404E00CC /* Pods_ClimbTrackerTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5222616C921042B46CEA3F92369327DF /* Pods-ClimbTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 819B8A3CA123AEFDD94FE93011691106 /* Build configuration list for PBXNativeTarget "Pods-ClimbTrackerUITests" */;
+			buildPhases = (
+				B9DB0E00CFF0A5D5F2977440BB1E61E2 /* Sources */,
+				DFB4F089F25531B93C319D58F882A7B6 /* Frameworks */,
+				8BCB4CFCA024D1D4B006A9D332DF1BB4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-ClimbTrackerUITests";
+			productName = "Pods-ClimbTrackerUITests";
+			productReference = 9AD7A6B431E6633521BBCB12FB4C1F10 /* Pods_ClimbTrackerUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AD8C067923189350E1E1443A15454622 /* Pods-ClimbTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F3D150FD26BC6CCF891849142050E6F /* Build configuration list for PBXNativeTarget "Pods-ClimbTracker" */;
+			buildPhases = (
+				4AA57BD486B72CA36A98BF3EE2A073CE /* Sources */,
+				353AA8720673D0C60AB813BF9F33B58E /* Frameworks */,
+				62766C9C7B1E4290C874D704D1B75469 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3869535AB3E8FC78D8B9BC8267618C80 /* PBXTargetDependency */,
+			);
+			name = "Pods-ClimbTracker";
+			productName = "Pods-ClimbTracker";
+			productReference = 422786965421BC000E1879CE02CD307A /* Pods_ClimbTracker.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = E910948F97AE4F464E004B44A7266EEC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD8C067923189350E1E1443A15454622 /* Pods-ClimbTracker */,
+				28F01A5E046E90B0ECF53074E0549891 /* Pods-ClimbTrackerTests */,
+				5222616C921042B46CEA3F92369327DF /* Pods-ClimbTrackerUITests */,
+				245D647FEFB9AF35D8D2D946BA9D08FE /* SwiftSpinner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4AA57BD486B72CA36A98BF3EE2A073CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E86F0D8D29116BD5ABBDD6B66E777EF /* Pods-ClimbTracker-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F03B9C83A0D8197E28173F619BAE226 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1ABE53ABAE643C88761ACDEEC6DB9AC /* SwiftSpinner-dummy.m in Sources */,
+				791E1080222464F56B65F27EF554493B /* SwiftSpinner.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9DB0E00CFF0A5D5F2977440BB1E61E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				978559199439E67584A0FD9F5E437040 /* Pods-ClimbTrackerUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6A742F79340674B00A13BDAAD74A950 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				394D24511B68BC8E29587FD0DA9C9476 /* Pods-ClimbTrackerTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3869535AB3E8FC78D8B9BC8267618C80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftSpinner;
+			target = 245D647FEFB9AF35D8D2D946BA9D08FE /* SwiftSpinner */;
+			targetProxy = D457CB2CD868C63C6C075D6034026BE6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0FF9F82BA644F445F7BAB94BF0BC6D1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C4F9E2835E8974A258172853ADF2C66 /* Pods-ClimbTrackerUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTrackerUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTrackerUITests/Pods-ClimbTrackerUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTrackerUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		163D87BE96A63549B0EACF1CC31A2E90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		1801E637647F9E8DD7F49EE225D83439 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2833E9F3101EEFF90C8113E824C91E2F /* Pods-ClimbTracker.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTracker/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTracker/Pods-ClimbTracker.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		412D0F98B87ABE17050437177C396959 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7F65B39513144FC5AB9CD6A9F510B13 /* SwiftSpinner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftSpinner/SwiftSpinner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftSpinner/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftSpinner/SwiftSpinner.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftSpinner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		46670E48AF7989AA47864DE96CDDA935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A99C1326953CB04252D39C27FC519CE0 /* Pods-ClimbTracker.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTracker/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTracker/Pods-ClimbTracker.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		60FDA8459C1715E89293CE8A4F07ADDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DC28A1C1A212A4227CADD926EFEA62C /* Pods-ClimbTrackerTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTrackerTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTrackerTests/Pods-ClimbTrackerTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTrackerTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		707B86CFB21B645E37109F39754D4051 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A1F23856CA09E7C5D71583F05644C5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABA6292E4DC3B46EEA362FCF931BB182 /* Pods-ClimbTrackerUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTrackerUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTrackerUITests/Pods-ClimbTrackerUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTrackerUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A6A948303DBA1AC2A009583E14F19CE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7F65B39513144FC5AB9CD6A9F510B13 /* SwiftSpinner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftSpinner/SwiftSpinner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftSpinner/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftSpinner/SwiftSpinner.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftSpinner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E6D704B4CF01BDEDDB16AB1BD10654E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EED62E8E4577F07D7574532E191A7A65 /* Pods-ClimbTrackerTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ClimbTrackerTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ClimbTrackerTests/Pods-ClimbTrackerTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ClimbTrackerTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				163D87BE96A63549B0EACF1CC31A2E90 /* Debug */,
+				707B86CFB21B645E37109F39754D4051 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F3D150FD26BC6CCF891849142050E6F /* Build configuration list for PBXNativeTarget "Pods-ClimbTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46670E48AF7989AA47864DE96CDDA935 /* Debug */,
+				1801E637647F9E8DD7F49EE225D83439 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F46C511465D407ADAC43757B0B307E2 /* Build configuration list for PBXNativeTarget "Pods-ClimbTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6D704B4CF01BDEDDB16AB1BD10654E5 /* Debug */,
+				60FDA8459C1715E89293CE8A4F07ADDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		819B8A3CA123AEFDD94FE93011691106 /* Build configuration list for PBXNativeTarget "Pods-ClimbTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FF9F82BA644F445F7BAB94BF0BC6D1B /* Debug */,
+				7A1F23856CA09E7C5D71583F05644C5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4C9E34CC881B7077BE238F3EB6046F4 /* Build configuration list for PBXNativeTarget "SwiftSpinner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6A948303DBA1AC2A009583E14F19CE2 /* Debug */,
+				412D0F98B87ABE17050437177C396959 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
