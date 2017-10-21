@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/febg/Climbtracker/Go/data"
-	"github.com/febg/Climbtracker/tools"
+	"github.com/febg/Climbtracker/Go/tools"
 	//"../data"
 	//"../tools"
 	"github.com/gorilla/mux"
