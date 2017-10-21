@@ -85,3 +85,28 @@ func getUserPassword(DB *sql.DB, uData UserData) (string, string, error) {
 	}
 	return pass, id, err
 }
+
+func getClimbingData(DB *sql.DB, uID string) {
+	qe := "`" + "felipeb85@gmail.com" + "`"
+	rows, err := DB.Query(`SELECT * FROM ` + qe + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
+		return
+	}
+	defer rows.Close()
+	// Get column names
+	columns, err := rows.Columns()
+	if err != nil {
+		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
+		return // proper error handling instead of panic in your app
+	}
+	values := make([]sql.RawBytes, len(columns))
+	// rows.Scan wants '[]interface{}' as an argument, so we must copy the
+	// references into such a slice
+	// See http://code.google.com/p/go-wiki/wiki/InterfaceSlice for details
+	scanArgs := make([]interface{}, len(values))
+	for i := range values {
+		scanArgs[i] = &values[i]
+	}
+
+}

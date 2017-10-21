@@ -125,3 +125,10 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 	log.Printf("-> [INFO] User Authenticated successfully")
 	return uID, nil
 }
+
+func ClimbingHistory(DB *sql.DB, uID string) (string, error) {
+	getClimbingData(DB, uID)
+
+	return "", nil
+
+}
