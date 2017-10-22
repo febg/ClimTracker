@@ -96,7 +96,7 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func PostCheckIn(w http.ResponseWriter, r *http.Request) {
+func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uD := data.NewCheckIn{
 		Level:  v["level"],
@@ -113,7 +113,7 @@ func PostCheckIn(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: Log in information not complete")
 		return
 	}
-	b, err := json.Marshal(uD)
+	_, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(w, string("Internal Server Error"))
