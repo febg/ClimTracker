@@ -95,3 +95,29 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "SUCCESS: UserID: %v", uID)
 	return
 }
+
+func PostCheckIn(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+	uD := data.NewChecKIn{
+
+		UserID: v["user_password"],
+	}
+
+	log.Printf("[REQUEST] Login request for user: %v", uD.Email)
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("[REQUEST] Login request terminated")
+
+	if uD.Email == "" || uD.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("-> [ERROR] Log in information not complete")
+		fmt.Fprint(w, "ERROR: Log in information not complete")
+		return
+	}
+	b, err := json.Marshal(uD)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Internal Server Error"))
+		log.Printf("[FATAL] Unable to Marshal request: %v", err)
+		return
+	}
+}

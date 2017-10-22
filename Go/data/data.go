@@ -8,8 +8,8 @@ import (
 	//"../tools"
 
 	"github.com/febg/Climbtracker/Go/tools"
-	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 
+	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,6 +19,12 @@ type UserData struct {
 	Email    string
 	Password string
 	UserID   string
+}
+
+// NewCheckIn contains checkin information
+type NewCheckIn struct {
+	Level  string
+	UserID string
 }
 
 // CheckUserExistance looks if client exists in users table
