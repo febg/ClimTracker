@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/febg/Climbtracker/Go/data"
+	"github.com/febg/Climbtracker/Go/tools"
 )
 
 //ValidateRagistration executes MySQL query to check user email in database
@@ -113,13 +113,16 @@ func getClimbingData(DB *sql.DB, uID string) {
 
 }
 
-func checkIn(DB *sql.DB, cData data.NewCheckIn) error {
-	stmt, err := DB.Prepare(`UPDATE ` + +` SET ` + diff + `=` + diff + `+ 1 WHERE date=` + date + `;`)
+func checkIn(DB *sql.DB, cData NewCheckIn) error {
+	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + date + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
 		return err
 	}
 	defer stmt.Close()
 	r, err := stmt.Exec()
-	check(err)
+	if err != nil {
+		return false
+	}
+	return true
 }

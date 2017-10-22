@@ -132,6 +132,7 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 	return uID, nil
 }
 
+// ClimbingHistory gets all climbing history for user
 func ClimbingHistory(DB *sql.DB, uID string) (string, error) {
 	getClimbingData(DB, uID)
 

@@ -2,6 +2,7 @@ package tools
 
 import (
 	"log"
+	"time"
 	//"github.com/febg/Climbtracker/tools"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -36,4 +37,9 @@ func Boulder(l string) string {
 // QueryTable formats string containing email address to MySQL query standards
 func QueryTable(t string) string {
 	return "`" + t + "`"
+}
+
+// Getdate returns string with current date information in 2006-01-2 format
+func GetDate() string {
+	return time.Now().Local().Format("2006-01-02")
 }
