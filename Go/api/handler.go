@@ -98,16 +98,16 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 
 func PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
-	uD := data.NewChecKIn{
-
+	uD := data.NewCheckIn{
+		Level:  v["level"],
 		UserID: v["user_password"],
 	}
 
-	log.Printf("[REQUEST] Login request for user: %v", uD.Email)
+	log.Printf("[REQUEST] Login request for user: %v", uD.UserID)
 	defer log.Printf("----------------------------------------")
 	defer log.Printf("[REQUEST] Login request terminated")
 
-	if uD.Email == "" || uD.Password == "" {
+	if uD.Level == "" || uD.UserID == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		log.Printf("-> [ERROR] Log in information not complete")
 		fmt.Fprint(w, "ERROR: Log in information not complete")
