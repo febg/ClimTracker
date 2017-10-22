@@ -26,5 +26,14 @@ func ComparePasswords(pwd string, encPwd string) bool {
 		return false
 	}
 	return true
+}
 
+// Boulder converts block level to database field notation
+func Boulder(l string) string {
+	return "V" + l
+}
+
+// QueryTable formats string containing email address to MySQL query standards
+func QueryTable(t string) string {
+	return "`" + t + "`"
 }
