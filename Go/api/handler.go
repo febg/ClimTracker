@@ -101,7 +101,7 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uD := data.NewCheckIn{
 		Level:  v["level"],
-		UserID: v["user_password"],
+		UserID: v["user_id"],
 	}
 
 	log.Printf("[REQUEST] Check in request for user: %v", uD.UserID)
