@@ -45,11 +45,8 @@ func NewControl(config ControlConfig) (*Control, error) {
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
 
-	t := startUpdatetimer(1)
-	select {
-	case <-t.C:
-		test()
-	}
+	startUpdatetimer(1)
+
 	return &c, nil
 }
 
@@ -66,8 +63,12 @@ func tasktest() {
 	log.Printf("Cron")
 }
 
-func startUpdatetimer(h int) *time.Timer {
-	return time.NewTimer(time.Minute * time.Duration(h))
+func startUpdatetimer(h int) {
+	t := time.NewTimer(time.Minute * time.Duration(h))
+	select {
+	case <-t.C:
+		test()
+	}
 }
 func test() {
 	log.Printf("test")
