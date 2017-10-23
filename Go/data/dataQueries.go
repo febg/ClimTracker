@@ -114,7 +114,7 @@ func getClimbingData(DB *sql.DB, uID string) {
 }
 
 func recordBlock(DB *sql.DB, cData NewCheckIn) error {
-	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + tools.GetDate() + `;`)
+	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + tools.QueryField(tools.GetDate()) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Record Block query preparation: %v", err)
 		return err
@@ -128,9 +128,7 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 }
 
 func initializeTable(DB *sql.DB, bData NewCheckIn) error {
-	date := "'" + tools.GetDate() + "'"
-	log.Printf(date)
-	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = 2017, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
+	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = ` + tools.QueryField(tools.GetDate()) + `, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] Initialize Table query preparation: %v", err)
