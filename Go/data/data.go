@@ -7,7 +7,6 @@ import (
 
 	//"../tools"
 
-	"github.com/febg/Climbtracker/Go/api"
 	"github.com/febg/Climbtracker/Go/tools"
 
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
@@ -141,7 +140,7 @@ func ClimbingHistory(DB *sql.DB, uID string) (string, error) {
 
 }
 
-func CheckIn(DB *sql.DB, c *api.Control, c []byte) error {
+func CheckIn(DB *sql.DB, c []byte) error {
 	var data NewCheckIn
 	err := json.Unmarshal(c, &data)
 	if err != nil {

@@ -38,7 +38,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 			return nil, err
 		}
 		log.Printf("[LOG] Stablished Connection to remote MySQL server")
-		c.Cache = gym.InitializeCache()
+		c.Cache = data.InitializeCache()
 		log.Printf("[LOG] Created local cache on heap")
 		return &c, nil
 	}
