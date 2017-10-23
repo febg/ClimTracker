@@ -113,16 +113,16 @@ func getClimbingData(DB *sql.DB, uID string) {
 
 }
 
-func checkIn(DB *sql.DB, cData NewCheckIn) error {
-	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + date + `;`)
+func recordBlock(DB *sql.DB, cData NewCheckIn) error {
+	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + tools.GetDate() + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
 		return err
 	}
 	defer stmt.Close()
-	r, err := stmt.Exec()
+	_, err = stmt.Exec()
 	if err != nil {
-		return false
+		return err
 	}
-	return true
+	return nil
 }
