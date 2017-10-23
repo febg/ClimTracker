@@ -155,7 +155,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 			log.Printf("-> [ERROR] Unable to record block entry")
 			return err
 		}
-
+		log.Printf("-> [INFO] Block recorded successfully")
 		return nil
 	}
 	err = initializeTable(DB, C)
