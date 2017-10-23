@@ -25,7 +25,3 @@ func main() {
 		log.Fatal("ListenAndServe Error: ", err)
 	}
 }
-
-func test() {
-	log.Printf("test")
-}

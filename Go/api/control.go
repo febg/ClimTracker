@@ -44,7 +44,12 @@ func NewControl(config ControlConfig) (*Control, error) {
 		log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
-	//go InitCron(1, "tasktest")
+
+	t := startUpdatetimer(1)
+	select {
+	case <-t.C:
+		test()
+	}
 	return &c, nil
 }
 
@@ -61,10 +66,9 @@ func tasktest() {
 	log.Printf("Cron")
 }
 
-func startUpdatetimer(t int) *Timer {
-	t := time.NewTimer(time.Minute * 1)
-	select {
-	case <-t.C:
-		test()
-	}
+func startUpdatetimer(h int) *time.Timer {
+	return time.NewTimer(time.Minute * time.Duration(h))
+}
+func test() {
+	log.Printf("test")
 }
