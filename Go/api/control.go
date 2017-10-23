@@ -7,7 +7,6 @@ import (
 	"github.com/jasonlvhit/gocron"
 
 	"github.com/febg/Climbtracker/Go/data"
-	"github.com/febg/Climbtracker/Go/gym"
 	//"../data"
 )
 
@@ -15,7 +14,7 @@ import (
 type Control struct {
 	Config   ControlConfig
 	DataBase *sql.DB
-	Cache    *gym.CachedUsers
+	Cache    *data.CachedUsers
 }
 
 // ControlConfig configures the settings of the server controller
