@@ -17,7 +17,6 @@ func main() {
 		log.Fatal(err)
 	}
 	router := api.StandardRouter(c)
-	log.Printf("Si")
 	//f := make(chan bool)
 
 	err = http.ListenAndServe(":8080", router)
