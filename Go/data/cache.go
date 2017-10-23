@@ -1,5 +1,7 @@
 package data
 
+import "log"
+
 type CachedUsers struct {
 	Users []string
 }
@@ -22,6 +24,7 @@ func (c *CachedUsers) AddUser(uID string) {
 
 func (c *CachedUsers) UserExists(uID string) bool {
 	for _, v := range c.Users {
+		log.Printf("test, %v", v)
 		if v == uID {
 			return true
 		}

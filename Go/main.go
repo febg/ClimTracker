@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	c, err := api.NewControl(api.ControlConfig{
 		LocalMySQL: true,
 	})
