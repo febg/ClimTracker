@@ -19,10 +19,13 @@ func (c *CachedUsers) EmptyCache() {
 }
 
 func (c *CachedUsers) AddUser(uID string) {
+
 	c.Users = append(c.Users, uID)
+	log.Printf("ADD: %v", c.Users)
 }
 
 func (c *CachedUsers) UserExists(uID string) bool {
+	log.Printf("Cache: %v", c.Users)
 	for _, v := range c.Users {
 		log.Printf("test, %v", v)
 		if v == uID {
