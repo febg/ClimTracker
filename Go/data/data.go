@@ -149,11 +149,27 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 	}
 	log.Printf("-> [LOG] Checking data initialization in user table..")
 	if c.UserExists(C.UserID) {
-		recordBlock(DB, C)
+		log.Printf("-> [INFO] User found, recording block entry")
+		err = recordBlock(DB, C)
+		if err != nil {
+			log.Printf("-> [ERROR] Unable to record block entry")
+			return err
+		}
+
 		return nil
 	}
-	initializeTable(DB, C)
+	err = initializeTable(DB, C)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to initialize table")
+		return err
+	}
+	log.Printf("-> [INFO] Table initialized successfully")
 	c.AddUser(C.UserID)
-	recordBlock(DB, C)
+	err = recordBlock(DB, C)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to record block entry")
+		return err
+	}
+	log.Printf("-> [INFO] Block recorded successfully")
 	return nil
 }

@@ -121,6 +121,5 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[FATAL] Unable to Marshal request: %v", err)
 		return
 	}
-	log.Println(c.Cache)
 	data.CheckIn(c.DataBase, c.Cache, bs)
 }

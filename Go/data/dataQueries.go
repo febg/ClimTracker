@@ -123,6 +123,7 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 	_, err = stmt.Exec()
 	if err != nil {
 		log.Printf("-> [ERROR] Record Block query execution: %v", err)
+		return err
 	}
 	return nil
 }
