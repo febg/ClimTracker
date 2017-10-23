@@ -17,17 +17,13 @@ func main() {
 		log.Fatal(err)
 	}
 	router := api.StandardRouter(c)
-	go listenUpdateChanel(c)
+	log.Printf("Si")
+	//f := make(chan bool)
+
 	err = http.ListenAndServe(":8080", router)
 	log.Println("[LOG] Listening on http://localhost:8080")
 	log.Println("----------------------------------------")
 	if err != nil {
 		log.Fatal("ListenAndServe Error: ", err)
-	}
-}
-func listenUpdateChanel(c *api.Control) {
-	select {
-	case <-c.UpdateTimer.C:
-		api.UpdateData()
 	}
 }

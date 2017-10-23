@@ -3,7 +3,6 @@ package api
 import (
 	"database/sql"
 	"log"
-	"time"
 
 	"github.com/jasonlvhit/gocron"
 
@@ -13,9 +12,9 @@ import (
 
 // Control is
 type Control struct {
-	Config      ControlConfig
-	DataBase    *sql.DB
-	UpdateTimer *time.Timer
+	Config   ControlConfig
+	DataBase *sql.DB
+	Cache    data.CachedUsers
 }
 
 // ControlConfig configures the settings of the server controller
@@ -38,6 +37,8 @@ func NewControl(config ControlConfig) (*Control, error) {
 			return nil, err
 		}
 		log.Printf("[LOG] Stablished Connection to remote MySQL server")
+
+		log.Printf("[LOG] Created local cache on heap")
 		return &c, nil
 	}
 	c.DataBase, err = data.NewLocalMySQL()
@@ -45,8 +46,6 @@ func NewControl(config ControlConfig) (*Control, error) {
 		log.Printf("[FATAL] Could not initialized data storage sytem %v", err)
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
-
-	c.UpdateTimer = startUpdatetimer(1)
 
 	return &c, nil
 }
@@ -70,9 +69,6 @@ func tasktest() {
 	log.Printf("Cron")
 }
 
-func startUpdatetimer(h int) *time.Timer {
-	return time.NewTimer(time.Minute * time.Duration(h))
-}
 func test() {
 	log.Printf("test")
 }
