@@ -3,6 +3,8 @@ package tools
 import (
 	"log"
 	"time"
+
+	qrcode "github.com/skip2/go-qrcode"
 	//"github.com/febg/Climbtracker/tools"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -46,4 +48,15 @@ func QueryField(t string) string {
 // Getdate returns string with current date information in 2006-01-2 format
 func GetDate() string {
 	return time.Now().Local().Format("2006-01-02")
+}
+
+func GenerateQrCode(fID string) []byte {
+	log.Print("-> [TOOLS] Encoding QR code...")
+	qr, err := qrcode.Encode(fID, qrcode.Medium, 256)
+	if err != nil {
+		log.Printf("-> [ERROR] %v", err)
+		return nil
+	}
+	err = qrcode.WriteFile("https://example.org", qrcode.Medium, 256, "qr.png")
+	return qr
 }

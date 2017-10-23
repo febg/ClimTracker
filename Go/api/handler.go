@@ -32,7 +32,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: Registration information given not complete")
 		return
 	}
-
+	uD.QrCode = tools.GenerateQrCode(uD.Email)
 	b, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
