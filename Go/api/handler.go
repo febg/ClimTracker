@@ -114,11 +114,12 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: Check in information not complete")
 		return
 	}
-	_, err := json.Marshal(uD)
+	bs, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(w, string("Internal Server Error"))
 		log.Printf("[FATAL] Unable to Marshal request: %v", err)
 		return
 	}
+	data.CheckIn(c.DataBase, c.Cache, bs)
 }
