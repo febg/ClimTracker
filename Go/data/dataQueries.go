@@ -133,14 +133,14 @@ func initializeTable(DB *sql.DB, bData NewCheckIn) error {
 	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = ` + tools.QueryTable(date) + `, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
-		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
+		log.Printf("-> [ERROR] Initialize Table query preparation: %v", err)
 		return err
 	}
 	defer stmt.Close()
 
 	_, err = stmt.Exec()
 	if err != nil {
-		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
+		log.Printf("-> [ERROR] Initialize Table query execution: %v", err)
 		return err
 	}
 	return nil
