@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"encoding/base64"
 	"log"
 	"time"
 
@@ -50,13 +51,14 @@ func GetDate() string {
 	return time.Now().Local().Format("2006-01-02")
 }
 
-func GenerateQrCode(fID string) []byte {
+func GenerateQrCode(fID string) string {
 	log.Print("-> [TOOLS] Encoding QR code...")
 	qr, err := qrcode.Encode(fID, qrcode.Medium, 256)
 	if err != nil {
 		log.Printf("-> [ERROR] %v", err)
-		return nil
+		return ""
 	}
+	log.Println(qr)
 	err = qrcode.WriteFile("https://example.org", qrcode.Medium, 256, "qr.png")
-	return qr
+	return base64.StdEncoding.EncodeToString(qr)
 }

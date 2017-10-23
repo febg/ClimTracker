@@ -2,6 +2,7 @@ package data
 
 import (
 	"database/sql"
+	"encoding/base64"
 	"log"
 
 	"github.com/febg/Climbtracker/Go/gym"
@@ -34,7 +35,9 @@ func validateRagistration(DB *sql.DB, uData UserData) (bool, error) {
 
 // SendUser prepares and executes MySQL query to store user in data base
 func sendUser(DB *sql.DB, uData UserData) (bool, error) {
-	myQuery := `INSERT INTO users VALUES (NULL,` + `'` + uData.Name + `','` + uData.Email + `','` + uData.Password + `','` + uData.UserID + `');`
+	log.Println(uData.QrCode, len(uData.QrCode))
+	log.Println(base64.StdEncoding.DecodeString(uData.QrCode))
+	myQuery := `INSERT INTO users VALUES (NULL,` + `'` + uData.Name + `','` + uData.Email + `','` + uData.Password + `','` + uData.UserID + `','` + uData.QrCode + `');`
 
 	stmt, err := DB.Prepare(myQuery)
 	if err != nil {

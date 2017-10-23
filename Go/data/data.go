@@ -20,7 +20,7 @@ type UserData struct {
 	Email    string
 	Password string
 	UserID   string
-	QrCode   []byte
+	QrCode   string
 }
 
 // NewCheckIn contains checkin information
@@ -78,6 +78,7 @@ func NewUser(DB *sql.DB, uData []byte) (bool, error) {
 	if s1, err := CheckUserExistance(DB, data); err != nil {
 		return false, err
 	} else if s1 == true {
+		data.QrCode = tools.GenerateQrCode(data.Email)
 		if s2, err := RegisterUser(DB, data); s2 != true {
 			if err != nil {
 				return s2, err

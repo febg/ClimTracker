@@ -3,18 +3,21 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/febg/Climbtracker/Go/api"
 	//"./api"
 )
 
 func main() {
+	log.Printf("[LOG] Booting up server..")
 	c, err := api.NewControl(api.ControlConfig{
 		LocalMySQL: true,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
+	os.Remove("qr.png")
 	router := api.StandardRouter(c)
 	log.Println("[LOG] Listening on http://localhost:8080")
 	log.Println("----------------------------------------")
