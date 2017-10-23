@@ -60,6 +60,7 @@ func initCron(time int, t string) error {
 	return nil
 }
 
+//StartUpdateTimer sdfhdfg dfgh  dfgh
 func StartUpdateTimer(h int) {
 	log.Printf("[LOG] Update Timmer Initialized")
 	t := startUpdatetimer(h)
