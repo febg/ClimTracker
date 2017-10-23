@@ -25,7 +25,7 @@ func (c *CachedUsers) AddUser(uID string) {
 }
 
 func (c *CachedUsers) UserExists(uID string) bool {
-	log.Printf("Cache: %v", c.Users)
+	log.Printf("Cachee: %v", c.Users)
 	for _, v := range c.Users {
 		log.Printf("test, %v", v)
 		if v == uID {
