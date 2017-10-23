@@ -63,7 +63,7 @@ func initCron(time int, t string) error {
 //StartUpdateTimer sdfhdfg dfgh  dfgh
 func UpdateData() {
 	log.Printf("[LOG] Update Timmer Initialized")
-
+	return
 }
 
 func tasktest() {

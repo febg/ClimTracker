@@ -28,6 +28,6 @@ func main() {
 func listenUpdateChanel(c *api.Control) {
 	select {
 	case <-c.UpdateTimer.C:
-		api.UpdateData
+		api.UpdateData()
 	}
 }
