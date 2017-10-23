@@ -52,7 +52,7 @@ func sendUser(DB *sql.DB, uData UserData) (bool, error) {
 // CreateUserTable executes query to create a a table for newly registered user
 func createUserTable(DB *sql.DB, uData UserData) (bool, error) {
 	table := "`" + uData.UserID + "`"
-	myQuery := `CREATE TABLE ` + table + ` (uid INT NOT NULL UNIQUE AUTO_INCREMENT, date VARCHAR(20) NOT NULL, V1 INT, V2 INT, V3 INT, V4 INT, V5 INT, V6 INT, PRIMARY KEY (uid));`
+	myQuery := `CREATE TABLE ` + table + ` (uid INT NOT NULL UNIQUE AUTO_INCREMENT, date VARCHAR(20) NOT NULL UNIQUE, V1 INT, V2 INT, V3 INT, V4 INT, V5 INT, V6 INT, PRIMARY KEY (uid));`
 	stmt, err := DB.Prepare(myQuery)
 	if err != nil {
 		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
