@@ -29,6 +29,8 @@ func NewControl(config ControlConfig) (*Control, error) {
 	}
 	log.Printf("[LOG] Starting server controller... { [LocalMySQL: %v] }", c.Config.LocalMySQL)
 	defer log.Printf("[LOG] Started server controller")
+	c.Cache = data.InitializeCache()
+	log.Printf("[LOG] Created local cache on heap")
 	var err error
 	if !config.LocalMySQL {
 		c.DataBase, err = data.NewMySQL()
@@ -37,8 +39,6 @@ func NewControl(config ControlConfig) (*Control, error) {
 			return nil, err
 		}
 		log.Printf("[LOG] Stablished Connection to remote MySQL server")
-		c.Cache = data.InitializeCache()
-		log.Printf("[LOG] Created local cache on heap")
 		return &c, nil
 	}
 	c.DataBase, err = data.NewLocalMySQL()
