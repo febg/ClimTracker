@@ -17,6 +17,7 @@ func main() {
 		log.Fatal(err)
 	}
 	router := api.StandardRouter(c)
+	c.StartUpdateTimer(1)
 	log.Println("[LOG] Listening on http://localhost:8080")
 	log.Println("----------------------------------------")
 

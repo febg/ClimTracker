@@ -15,6 +15,7 @@ import (
 type Control struct {
 	Config   ControlConfig
 	DataBase *sql.DB
+	//UpdateTimer *time.Timer
 }
 
 // ControlConfig configures the settings of the server controller
@@ -45,7 +46,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
 
-	startUpdatetimer(1)
+	//c.UpdateTimer := startUpdatetimer(1)
 
 	return &c, nil
 }
@@ -59,16 +60,21 @@ func initCron(time int, t string) error {
 	return nil
 }
 
-func tasktest() {
-	log.Printf("Cron")
-}
-
-func startUpdatetimer(h int) {
-	t := time.NewTimer(time.Minute * time.Duration(h))
+func StartUpdateTimer(h int) {
+	log.Printf("[LOG] Update Timmer Initialized")
+	t := startUpdatetimer(h)
 	select {
 	case <-t.C:
 		test()
 	}
+}
+
+func tasktest() {
+	log.Printf("Cron")
+}
+
+func startUpdatetimer(h int) *time.Timer {
+	return time.NewTimer(time.Minute * time.Duration(h))
 }
 func test() {
 	log.Printf("test")
