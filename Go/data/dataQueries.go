@@ -127,6 +127,6 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 	return nil
 }
 
-func checkDate() bool {
-	return false
+func checkDate() error {
+	return nil
 }

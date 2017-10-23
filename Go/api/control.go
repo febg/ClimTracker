@@ -3,6 +3,7 @@ package api
 import (
 	"database/sql"
 	"log"
+	"time"
 
 	"github.com/jasonlvhit/gocron"
 
@@ -58,4 +59,12 @@ func initCron(time int, t string) error {
 
 func tasktest() {
 	log.Printf("Cron")
+}
+
+func startUpdatetimer(t int) *Timer {
+	t := time.NewTimer(time.Minute * 1)
+	select {
+	case <-t.C:
+		test()
+	}
 }

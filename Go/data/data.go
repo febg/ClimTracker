@@ -148,6 +148,6 @@ func CheckIn(DB *sql.DB, c []byte) error {
 		return err
 	}
 	log.Printf("-> [LOG] Checking data initialization in user table..")
-
+	err = checkDate()
 	return nil
 }
