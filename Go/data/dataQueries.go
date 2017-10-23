@@ -116,7 +116,7 @@ func getClimbingData(DB *sql.DB, uID string) {
 func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + tools.GetDate() + `;`)
 	if err != nil {
-		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
+		log.Printf("-> [ERROR] Record Block query preparation: %v", err)
 		return err
 	}
 	defer stmt.Close()
