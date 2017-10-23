@@ -13,8 +13,8 @@ import (
 
 // Control is
 type Control struct {
-	Config   ControlConfig
-	DataBase *sql.DB
+	Config      ControlConfig
+	DataBase    *sql.DB
 	UpdateTimer *time.Timer
 }
 
@@ -46,7 +46,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 	}
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
 
-	c.UpdateTimer := startUpdatetimer(1)
+	c.UpdateTimer = startUpdatetimer(1)
 
 	return &c, nil
 }
