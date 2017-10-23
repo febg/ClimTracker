@@ -8,7 +8,6 @@ import (
 	//"../tools"
 
 	"github.com/febg/Climbtracker/Go/api"
-	"github.com/febg/Climbtracker/Go/gym"
 	"github.com/febg/Climbtracker/Go/tools"
 
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
@@ -150,8 +149,9 @@ func CheckIn(DB *sql.DB, c *api.Control, c []byte) error {
 		return err
 	}
 	log.Printf("-> [LOG] Checking data initialization in user table..")
-	if !gym.UserExists(data.UserID) {
+	if !UserExists(data.UserID) {
 		checkDate(DB, data)
 		return nil
 	}
+	return nil
 }
