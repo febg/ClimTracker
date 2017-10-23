@@ -140,17 +140,20 @@ func ClimbingHistory(DB *sql.DB, uID string) (string, error) {
 
 }
 
-func CheckIn(DB *sql.DB, c []byte) error {
-	var data NewCheckIn
-	err := json.Unmarshal(c, &data)
+func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
+	var C NewCheckIn
+	err := json.Unmarshal(d, &C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return err
 	}
 	log.Printf("-> [LOG] Checking data initialization in user table..")
-	if !UserExists(data.UserID) {
-		checkDate(DB, data)
+	if c.UserExists(C.UserID) {
+
 		return nil
 	}
+	initializeTable(DB, C)
+	c.AddUser(C.UserID)
+	recordBlock(DB, C)
 	return nil
 }
