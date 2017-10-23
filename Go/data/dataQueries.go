@@ -128,7 +128,9 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 }
 
 func initializeTable(DB *sql.DB, bData NewCheckIn) error {
-	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = ` + tools.GetDate() + `, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
+	date := tools.GetDate()
+	log.Printf(date)
+	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = ` + tools.QueryTable(date) + `, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] Create Table query preparation: %v", err)

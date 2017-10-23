@@ -149,7 +149,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 	}
 	log.Printf("-> [LOG] Checking data initialization in user table..")
 	if c.UserExists(C.UserID) {
-
+		recordBlock(DB, C)
 		return nil
 	}
 	initializeTable(DB, C)
