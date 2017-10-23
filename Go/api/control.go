@@ -7,6 +7,7 @@ import (
 	"github.com/jasonlvhit/gocron"
 
 	"github.com/febg/Climbtracker/Go/data"
+	"github.com/febg/Climbtracker/Go/gym"
 	//"../data"
 )
 
@@ -14,7 +15,7 @@ import (
 type Control struct {
 	Config   ControlConfig
 	DataBase *sql.DB
-	Cache    data.CachedUsers
+	Cache    *gym.CachedUsers
 }
 
 // ControlConfig configures the settings of the server controller
@@ -37,7 +38,7 @@ func NewControl(config ControlConfig) (*Control, error) {
 			return nil, err
 		}
 		log.Printf("[LOG] Stablished Connection to remote MySQL server")
-
+		c.Cache = gym.InitializeCache()
 		log.Printf("[LOG] Created local cache on heap")
 		return &c, nil
 	}

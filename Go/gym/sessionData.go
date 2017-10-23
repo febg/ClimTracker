@@ -37,6 +37,15 @@ func (c *CachedUsers) AddUser(uID string) {
 	c.Users = append(c.Users, uID)
 }
 
+func (c *CachedUsers) UserExists(uID string) bool {
+	for _, v := range c.Users {
+		if v == uID {
+			return true
+		}
+	}
+	return false
+}
+
 func (c *ClimbingData) Append(d DayData) error {
 	c.Data = append(c.Data, d)
 	return nil
