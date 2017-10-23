@@ -8,6 +8,7 @@ type ClimbingData struct {
 }
 
 type DayData struct {
+	UId  string `json:"uID"`
 	Date string `json:"Date"`
 	V1   string `json:"V1"`
 	V2   string `json:"V2"`

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/febg/Climbtracker/Go/gym"
 	"github.com/febg/Climbtracker/Go/tools"
 )
 
@@ -88,19 +89,18 @@ func getUserPassword(DB *sql.DB, uData UserData) (string, string, error) {
 	return pass, id, err
 }
 
-func getClimbingData(DB *sql.DB, uID string) {
-	qe := "`" + "felipeb85@gmail.com" + "`"
-	rows, err := DB.Query(`SELECT * FROM ` + qe + `;`)
+func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
+	rows, err := DB.Query(`SELECT * FROM ` + tools.QueryTable(uID) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
-		return
+		return nil
 	}
 	defer rows.Close()
 	// Get column names
 	columns, err := rows.Columns()
 	if err != nil {
 		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
-		return // proper error handling instead of panic in your app
+		return nil // proper error handling instead of panic in your app
 	}
 	values := make([]sql.RawBytes, len(columns))
 	// rows.Scan wants '[]interface{}' as an argument, so we must copy the
@@ -111,6 +111,28 @@ func getClimbingData(DB *sql.DB, uID string) {
 		scanArgs[i] = &values[i]
 	}
 
+	cData := gym.ClimbingData{}
+	for rows.Next() {
+		err = rows.Scan(scanArgs...)
+		if err != nil {
+			panic(err.Error()) // proper error handling instead of panic in your app
+		}
+		dData := gym.DayData{
+			UId:  string(values[0]),
+			Date: string(values[1]),
+			V1:   string(values[2]),
+			V2:   string(values[3]),
+			V3:   string(values[4]),
+			V4:   string(values[5]),
+			V5:   string(values[6]),
+			V6:   string(values[7]),
+		}
+
+		cData.Append(dData)
+
+	}
+
+	return &cData
 }
 
 func recordBlock(DB *sql.DB, cData NewCheckIn) error {
@@ -125,6 +147,7 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 		log.Printf("-> [ERROR] Record Block query execution: %v", err)
 		return err
 	}
+	log.Printf("-> [INFO] Block entry recorded successfully")
 	return nil
 }
 

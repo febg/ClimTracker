@@ -7,6 +7,7 @@ import (
 
 	//"../tools"
 
+	"github.com/febg/Climbtracker/Go/gym"
 	"github.com/febg/Climbtracker/Go/tools"
 
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
@@ -19,6 +20,7 @@ type UserData struct {
 	Email    string
 	Password string
 	UserID   string
+	QrCode   []byte
 }
 
 // NewCheckIn contains checkin information
@@ -133,10 +135,10 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 }
 
 // ClimbingHistory gets all climbing history for user
-func ClimbingHistory(DB *sql.DB, uID string) (string, error) {
-	getClimbingData(DB, uID)
+func ClimbingHistory(DB *sql.DB, uID string) (*gym.ClimbingData, error) {
+	cData := getClimbingData(DB, uID)
 
-	return "", nil
+	return cData, nil
 
 }
 
@@ -147,7 +149,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return err
 	}
-	log.Printf("-> [LOG] Checking data initialization in user table..")
+	log.Printf("-> [INFO] Checking cache..")
 	if c.UserExists(C.UserID) {
 		log.Printf("-> [INFO] User found, recording block entry")
 		err = recordBlock(DB, C)
@@ -158,6 +160,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 		log.Printf("-> [INFO] Block recorded successfully")
 		return nil
 	}
+	log.Printf("-> [INFO] User not found in cache, initializing table..")
 	err = initializeTable(DB, C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to initialize table")
@@ -165,6 +168,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 	}
 	log.Printf("-> [INFO] Table initialized successfully")
 	c.AddUser(C.UserID)
+	log.Printf("-> [INFO] Updating cache..")
 	err = recordBlock(DB, C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to record block entry")

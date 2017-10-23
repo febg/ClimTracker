@@ -39,6 +39,10 @@ func QueryTable(t string) string {
 	return "`" + t + "`"
 }
 
+func QueryField(t string) string {
+	return "'" + t + "'"
+}
+
 // Getdate returns string with current date information in 2006-01-2 format
 func GetDate() string {
 	return time.Now().Local().Format("2006-01-02")

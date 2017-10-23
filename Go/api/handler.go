@@ -32,6 +32,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "ERROR: Registration information given not complete")
 		return
 	}
+
 	b, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -51,6 +52,40 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintf(w, "Success: UserID: %v", uD.UserID)
+	return
+}
+
+func (c *Control) PostGetData(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+	uID := v["user_id"]
+	log.Printf("[REQUEST] Data request for user: %v", uID)
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("[REQUEST] Data request terminated")
+
+	if uID == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("-> [ERROR] Check in information not complete")
+		fmt.Fprint(w, string("Internal Server Error"))
+		return
+	}
+	log.Printf("-> [INFO] Getting user's climbing history..")
+	cData, err := data.ClimbingHistory(c.DataBase, uID)
+	if err != nil {
+		fmt.Fprint(w, string("Internal Server Error"))
+		log.Printf("[ERROR] Unable to obtain Climbhistory: %v", err)
+	}
+	log.Printf("-> [INFO] Climbing history successfully obtained")
+	log.Printf("-> [INFO] Encoding climbing history...")
+	b, err := json.Marshal(cData)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Internal Server Error"))
+		log.Printf("[FATAL] Unable to Marshal request: %v", err)
+		return
+	}
+	log.Printf("-> [INFO] Climbing history sent to client successfully")
+	fmt.Fprint(w, string(b))
+
 	return
 }
 
@@ -122,4 +157,5 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data.CheckIn(c.DataBase, c.Cache, bs)
+	//Handle errors and respond to client
 }

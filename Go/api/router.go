@@ -9,6 +9,7 @@ func StandardRouter(c *Control) *mux.Router {
 	r.Methods("GET").Path("/register/{user_email}/{user_password}/{user_name}").HandlerFunc(c.PostRegisterUser)
 	r.Methods("GET").Path("/login/{user_email}/{user_password}").HandlerFunc(c.PostLogInUser)
 	r.Methods("GET").Path("/checkin/{user_id}/{level}").HandlerFunc(c.PostCheckIn)
+	r.Methods("GET").Path("/getall/{user_id}/").HandlerFunc(c.PostGetData)
 
 	return r
 }
