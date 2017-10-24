@@ -12,7 +12,7 @@ import (
 //ValidateRagistration executes MySQL query to check user email in database
 func validateRagistration(DB *sql.DB, uData UserData) (bool, error) {
 	qe := "'" + uData.Email + "'"
-	rows, err := DB.Query(`SELECT email FROM users WHERE email=` + qe + `;`)
+	rows, err := DB.Query(`SELECT email FROM UserInformation WHERE Email=` + qe + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Validation Query: %v, %v", err, DB)
 		return false, err
