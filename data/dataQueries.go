@@ -2,6 +2,7 @@ package data
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 
 	"github.com/febg/Climbtracker/gym"
@@ -10,26 +11,46 @@ import (
 
 //ValidateRagistration executes MySQL query to check user email in database
 func validateRagistration(DB *sql.DB, uData UserData) (bool, error) {
-	qe := "'" + uData.Email + "'"
-	rows, err := DB.Query(`SELECT email FROM UserInformation WHERE Email=` + qe + `;`)
+	rows, err := DB.Query(`SELECT Email FROM UserInformation WHERE Email=` + tools.QueryField(uData.Email) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Validation Query: %v, %v", err, DB)
 		return false, err
 	}
 	defer rows.Close()
-	var name string
+	var email string
 	for rows.Next() {
-		err := rows.Scan(&name)
+		err := rows.Scan(&email)
 		if err != nil {
 			log.Printf("-> [ERROR] SQL response: %v", err)
 			return false, err
 		}
 	}
-	if name == "" {
+	if email == "" {
 		return true, nil
 	}
 
 	return false, nil
+}
+func validateUID(DB *sql.DB, uID string) error {
+	rows, err := DB.Query(`SELECT Email FROM UserInformation WHERE uID=` + tools.QueryField(uID) + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] uID validation Query: %v, %v", err, DB)
+		return err
+	}
+	defer rows.Close()
+	var id string
+	for rows.Next() {
+		err = rows.Scan(&id)
+		if err != nil {
+			log.Printf("-> [ERROR] uID SQL response: %v", err)
+			return err
+		}
+	}
+	if id == "" {
+		return errors.New("Usernot found in database")
+	}
+
+	return nil
 }
 
 // SendUser prepares and executes MySQL query to store user in data base
@@ -156,6 +177,7 @@ func (d *DataConfig) initializeUserTable(DB *sql.DB, uData UserData) {
 
 	return
 }
+
 func (d *DataConfig) initializeClimbingstats(DB *sql.DB, uData UserData) {
 	defer d.IG.Done()
 	myquery := `INSERT INTO ClimbingStats (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `);`
@@ -173,6 +195,7 @@ func (d *DataConfig) initializeClimbingstats(DB *sql.DB, uData UserData) {
 	}
 	return
 }
+
 func (d *DataConfig) initializePullUp(DB *sql.DB, uData UserData) {
 	defer d.IG.Done()
 	myquery := `INSERT INTO PullUpDB (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL, ` + tools.QueryField(tools.GetDate()) + `, ` + tools.QueryField(uData.UserID) + `);`

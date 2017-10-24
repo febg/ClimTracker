@@ -149,11 +149,16 @@ func ClimbingHistory(DB *sql.DB, uID string) (*gym.ClimbingData, error) {
 
 }
 
-func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
+func CheckIn(DB *sql.DB, d []byte) error {
 	var C NewCheckIn
 	err := json.Unmarshal(d, &C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
+		return err
+	}
+	err = validateUID(DB, C.UserID)
+	if err != nil {
+		log.Printf("-> [ERROR] User not found: %v", err)
 		return err
 	}
 	err = recordBlock(DB, C)
