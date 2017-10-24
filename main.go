@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/febg/Climbtracker/Go/api"
+	"github.com/febg/Climbtracker/api"
 	//"./api"
 )
 

@@ -2,11 +2,10 @@ package data
 
 import (
 	"database/sql"
-	"encoding/base64"
 	"log"
 
-	"github.com/febg/Climbtracker/Go/gym"
-	"github.com/febg/Climbtracker/Go/tools"
+	"github.com/febg/Climbtracker/gym"
+	"github.com/febg/Climbtracker/tools"
 )
 
 //ValidateRagistration executes MySQL query to check user email in database
@@ -35,10 +34,9 @@ func validateRagistration(DB *sql.DB, uData UserData) (bool, error) {
 
 // SendUser prepares and executes MySQL query to store user in data base
 func sendUser(DB *sql.DB, uData UserData) (bool, error) {
-	log.Println(uData.QrCode, len(uData.QrCode))
-	log.Println(base64.StdEncoding.DecodeString(uData.QrCode))
-	myQuery := `INSERT INTO users VALUES (NULL,` + `'` + uData.Name + `','` + uData.Email + `','` + uData.Password + `','` + uData.UserID + `','` + uData.QrCode + `');`
+	log.Printf("PWD L: %v", len(uData.Password))
 
+	myQuery := `INSERT INTO UserInformation VALUES (NULL,` + `'` + tools.GetDate() + `','` + uData.Name + `','` + uData.Password + `','` + uData.Email + `','` + uData.UserID + `');`
 	stmt, err := DB.Prepare(myQuery)
 	if err != nil {
 		log.Printf("->[ERROR] Registration query preparation: %v", err)
@@ -48,25 +46,6 @@ func sendUser(DB *sql.DB, uData UserData) (bool, error) {
 	_, err = stmt.Exec()
 	if err != nil {
 		log.Printf("->[ERROR] Registration query execution: %v", err)
-		return false, err
-	}
-	return true, nil
-}
-
-// CreateUserTable executes query to create a a table for newly registered user
-func createUserTable(DB *sql.DB, uData UserData) (bool, error) {
-	table := "`" + uData.UserID + "`"
-	myQuery := `CREATE TABLE ` + table + ` (uid INT NOT NULL UNIQUE AUTO_INCREMENT, date VARCHAR(20) NOT NULL UNIQUE, V1 INT, V2 INT, V3 INT, V4 INT, V5 INT, V6 INT, PRIMARY KEY (uid));`
-	stmt, err := DB.Prepare(myQuery)
-	if err != nil {
-		log.Printf("-> [ERROR] Create Table query preparation: %v", err)
-		return false, err
-	}
-	defer stmt.Close()
-
-	_, err = stmt.Exec()
-	if err != nil {
-		log.Printf("-> [ERROR] Create Table query execution: %v", err)
 		return false, err
 	}
 	return true, nil
@@ -93,7 +72,7 @@ func getUserPassword(DB *sql.DB, uData UserData) (string, string, error) {
 }
 
 func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
-	rows, err := DB.Query(`SELECT * FROM ` + tools.QueryTable(uID) + `;`)
+	rows, err := DB.Query(`SELECT * FROM ClimbingSessions WHERE uID = ` + tools.QueryField(uID) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
 		return nil
@@ -154,19 +133,55 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 	return nil
 }
 
-func initializeTable(DB *sql.DB, bData NewCheckIn) error {
-	myquery := `INSERT IGNORE INTO ` + tools.QueryTable(bData.UserID) + ` SET date = ` + tools.QueryField(tools.GetDate()) + `, V1 = 0, V2 = 0, V3 = 0, V4 = 0, V5 = 0, V6 = 0;`
+func (d *DataConfig) initializeUserTable(DB *sql.DB, uData UserData) {
+	defer d.IG.Done()
+	myquery := `INSERT INTO ClimbingSessions VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `, 0,  0,  0,  0, 0, 0);`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] Initialize Table query preparation: %v", err)
-		return err
+		return
 	}
 	defer stmt.Close()
 
 	_, err = stmt.Exec()
 	if err != nil {
 		log.Printf("-> [ERROR] Initialize Table query execution: %v", err)
-		return err
+		return
 	}
-	return nil
+
+	return
+}
+func (d *DataConfig) initializeClimbingstats(DB *sql.DB, uData UserData) {
+	defer d.IG.Done()
+	myquery := `INSERT INTO ClimbingStats Values(NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `, 0, 0, 0, 0, 0, 0, 0);`
+	stmt, err := DB.Prepare(myquery)
+	if err != nil {
+		log.Printf("-> [ERROR] Climbing stats query preparation: %v", err)
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Printf("-> [ERROR] Climbing stats query execution: %v", err)
+		return
+	}
+	return
+}
+func (d *DataConfig) initializePullUp(DB *sql.DB, uData UserData) {
+	defer d.IG.Done()
+	myquery := `INSERT INTO PullUpDB VALUES (NULL, ` + tools.QueryField(tools.GetDate()) + `, ` + tools.QueryField(uData.UserID) + `, 0, 0);`
+	stmt, err := DB.Prepare(myquery)
+	if err != nil {
+		log.Printf("-> [ERROR] PullUpDB query preparation: %v", err)
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Printf("-> [ERROR] PullUpDB query execution: %v", err)
+		return
+	}
+	return
 }

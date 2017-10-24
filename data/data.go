@@ -4,11 +4,12 @@ import (
 	"database/sql"
 	"encoding/json"
 	"log"
+	"sync"
 
 	//"../tools"
 
-	"github.com/febg/Climbtracker/Go/gym"
-	"github.com/febg/Climbtracker/Go/tools"
+	"github.com/febg/Climbtracker/gym"
+	"github.com/febg/Climbtracker/tools"
 
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 	_ "github.com/go-sql-driver/mysql"
@@ -27,6 +28,10 @@ type UserData struct {
 type NewCheckIn struct {
 	Level  string
 	UserID string
+}
+
+type DataConfig struct {
+	IG *sync.WaitGroup
 }
 
 // CheckUserExistance looks if client exists in users table
@@ -55,16 +60,23 @@ func RegisterUser(DB *sql.DB, uData UserData) (bool, error) {
 	return true, nil
 }
 
-// NewUserTable creates a unique table for each user in database
-func NewUserTable(DB *sql.DB, uData UserData) (bool, error) {
-	log.Printf("-> [INFO] Creating unique table for new user")
-	if newTable, err := createUserTable(DB, uData); newTable != true {
-		if err != nil {
-			log.Printf("-> [ERROR] Unable to create table")
-		}
+// InitializeUserData creates a unique table for each user in database
+func InitializeUserData(DB *sql.DB, uData UserData) {
+	log.Printf("-> [INFO] Initializing user information")
+	var initGroup sync.WaitGroup
+	dataInit := DataConfig{
+		IG: &initGroup,
 	}
-	log.Print("-> [INFO] Table created successfully")
-	return true, nil
+	initGroup.Add(1)
+	go dataInit.initializeUserTable(DB, uData)
+	initGroup.Add(1)
+	go dataInit.initializeClimbingstats(DB, uData)
+	initGroup.Add(1)
+	go dataInit.initializePullUp(DB, uData)
+	initGroup.Wait()
+
+	log.Print("-> [INFO] User information initialized")
+	return
 }
 
 // NewUser handles user registration in MySQL data base
@@ -85,14 +97,8 @@ func NewUser(DB *sql.DB, uData []byte) (bool, error) {
 			}
 			return s2, nil
 		}
-		if s3, err := NewUserTable(DB, data); s3 != true {
-			if err != nil {
-				log.Printf("-> [ERROR] Unable to create new table")
-				return false, err
-			}
-			return false, nil
-		}
-		return true, nil
+		InitializeUserData(DB, data)
+		return true, err
 	}
 	return false, nil
 }
@@ -105,7 +111,7 @@ func NewMySQL() (*sql.DB, error) {
 
 // NewLocalMySQL creates a connection to a MySQL database on local nerwork on port :3306
 func NewLocalMySQL() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:1692Ubc!@tcp(localhost:3306)/test02?charset=utf8")
+	db, err := sql.Open("mysql", "root:1692Ubc!@tcp(localhost:3306)/test3?charset=utf8")
 	return db, err
 }
 
@@ -162,7 +168,7 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 		return nil
 	}
 	log.Printf("-> [INFO] User not found in cache, initializing table..")
-	err = initializeTable(DB, C)
+	//err = initializeUserTable(DB, C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to initialize table")
 		return err

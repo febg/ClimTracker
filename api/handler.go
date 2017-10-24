@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/febg/Climbtracker/Go/data"
-	"github.com/febg/Climbtracker/Go/tools"
+	"github.com/febg/Climbtracker/data"
+	"github.com/febg/Climbtracker/tools"
 	//"../data"
 	//"../tools"
 	"github.com/gorilla/mux"

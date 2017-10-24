@@ -58,7 +58,5 @@ func GenerateQrCode(fID string) string {
 		log.Printf("-> [ERROR] %v", err)
 		return ""
 	}
-	log.Println(qr)
-	err = qrcode.WriteFile("https://example.org", qrcode.Medium, 256, "qr.png")
 	return base64.StdEncoding.EncodeToString(qr)
 }
