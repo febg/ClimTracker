@@ -52,7 +52,7 @@ func sendUser(DB *sql.DB, uData UserData) (bool, error) {
 }
 
 func getUserPassword(DB *sql.DB, uData UserData) (string, string, error) {
-	rows, err := DB.Query(`SELECT password, tableID FROM users WHERE email="` + uData.Email + `";`)
+	rows, err := DB.Query(`SELECT password, uID FROM UserInformation WHERE Email="` + uData.Email + `";`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user pwd query: %v", err)
 		return "", "", err
@@ -67,6 +67,10 @@ func getUserPassword(DB *sql.DB, uData UserData) (string, string, error) {
 			log.Printf("-> [ERROR] SQL response: %v", err)
 			return "", "", err
 		}
+
+	}
+	if pass == "" || id == "" {
+		return "", "", nil
 	}
 	return pass, id, err
 }
@@ -100,14 +104,15 @@ func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
 		dData := gym.DayData{
-			UId:  string(values[0]),
-			Date: string(values[1]),
-			V1:   string(values[2]),
-			V2:   string(values[3]),
-			V3:   string(values[4]),
-			V4:   string(values[5]),
-			V5:   string(values[6]),
-			V6:   string(values[7]),
+			Index: string(values[0]),
+			Date:  string(values[1]),
+			UId:   string(values[2]),
+			V1:    string(values[3]),
+			V2:    string(values[4]),
+			V3:    string(values[5]),
+			V4:    string(values[6]),
+			V5:    string(values[7]),
+			V6:    string(values[8]),
 		}
 
 		cData.Append(dData)
@@ -118,7 +123,7 @@ func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
 }
 
 func recordBlock(DB *sql.DB, cData NewCheckIn) error {
-	stmt, err := DB.Prepare(`UPDATE ` + tools.QueryTable(cData.UserID) + ` SET ` + tools.Boulder(cData.Level) + `=` + tools.Boulder(cData.Level) + `+ 1 WHERE date=` + tools.QueryField(tools.GetDate()) + `;`)
+	stmt, err := DB.Prepare(`INSERT INTO ClimbingSessions (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `, ` + tools.QueryTable(tools.Boulder(cData.Level)) + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(cData.UserID) + `, 1);`)
 	if err != nil {
 		log.Printf("-> [ERROR] Record Block query preparation: %v", err)
 		return err
@@ -135,7 +140,7 @@ func recordBlock(DB *sql.DB, cData NewCheckIn) error {
 
 func (d *DataConfig) initializeUserTable(DB *sql.DB, uData UserData) {
 	defer d.IG.Done()
-	myquery := `INSERT INTO ClimbingSessions VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `, 0,  0,  0,  0, 0, 0);`
+	myquery := `INSERT INTO ClimbingSessions (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] Initialize Table query preparation: %v", err)
@@ -153,7 +158,7 @@ func (d *DataConfig) initializeUserTable(DB *sql.DB, uData UserData) {
 }
 func (d *DataConfig) initializeClimbingstats(DB *sql.DB, uData UserData) {
 	defer d.IG.Done()
-	myquery := `INSERT INTO ClimbingStats Values(NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `, 0, 0, 0, 0, 0, 0, 0);`
+	myquery := `INSERT INTO ClimbingStats (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] Climbing stats query preparation: %v", err)
@@ -170,7 +175,7 @@ func (d *DataConfig) initializeClimbingstats(DB *sql.DB, uData UserData) {
 }
 func (d *DataConfig) initializePullUp(DB *sql.DB, uData UserData) {
 	defer d.IG.Done()
-	myquery := `INSERT INTO PullUpDB VALUES (NULL, ` + tools.QueryField(tools.GetDate()) + `, ` + tools.QueryField(uData.UserID) + `, 0, 0);`
+	myquery := `INSERT INTO PullUpDB (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL, ` + tools.QueryField(tools.GetDate()) + `, ` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)
 	if err != nil {
 		log.Printf("-> [ERROR] PullUpDB query preparation: %v", err)

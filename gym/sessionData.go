@@ -10,7 +10,7 @@ type ClimbingData struct {
 type DayData struct {
 	Index string `json:"index"`
 	Date  string `json:"Date"`
-	UID   string `json:"uID"`
+	UId   string `json:"uID"`
 	V1    string `json:"V1"`
 	V2    string `json:"V2"`
 	V3    string `json:"V3"`

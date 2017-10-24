@@ -23,7 +23,7 @@ func EncryptPassword(pwd string) string {
 
 // ComparePasswords Compares user provided password with hashed stores password
 func ComparePasswords(pwd string, encPwd string) bool {
-	log.Print("-> [TOOLS] Decrypting user password...")
+	log.Print("-> [TOOLS] Decrypting user password...", encPwd)
 	err := bcrypt.CompareHashAndPassword([]byte(encPwd), []byte(pwd))
 	if err != nil {
 		log.Printf("-> [ERROR] %v", err)

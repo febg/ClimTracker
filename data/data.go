@@ -156,26 +156,6 @@ func CheckIn(DB *sql.DB, c *CachedUsers, d []byte) error {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return err
 	}
-	log.Printf("-> [INFO] Checking cache..")
-	if c.UserExists(C.UserID) {
-		log.Printf("-> [INFO] User found, recording block entry")
-		err = recordBlock(DB, C)
-		if err != nil {
-			log.Printf("-> [ERROR] Unable to record block entry")
-			return err
-		}
-		log.Printf("-> [INFO] Block recorded successfully")
-		return nil
-	}
-	log.Printf("-> [INFO] User not found in cache, initializing table..")
-	//err = initializeUserTable(DB, C)
-	if err != nil {
-		log.Printf("-> [ERROR] Unable to initialize table")
-		return err
-	}
-	log.Printf("-> [INFO] Table initialized successfully")
-	c.AddUser(C.UserID)
-	log.Printf("-> [INFO] Updating cache..")
 	err = recordBlock(DB, C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to record block entry")
