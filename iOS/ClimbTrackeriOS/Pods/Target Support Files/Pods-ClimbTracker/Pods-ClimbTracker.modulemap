@@ -1,6 +1,0 @@
-framework module Pods_ClimbTracker {
-  umbrella header "Pods-ClimbTracker-umbrella.h"
-
-  export *
-  module * { export * }
-}
