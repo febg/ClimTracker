@@ -2,6 +2,7 @@ package tools
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"log"
 	"time"
 
@@ -58,5 +59,43 @@ func GenerateQrCode(fID string) string {
 		log.Printf("-> [ERROR] %v", err)
 		return ""
 	}
+	//qrcode.WriteFile("content", qrcode.Medium, 256, "qr.png")
 	return base64.StdEncoding.EncodeToString(qr)
+}
+
+// func FindDateEntry(d *gym.ClimbingData, id string) bool {
+// 	for _, v := range d.Data {
+// 		if v.Day == id {
+// 			return true
+// 		}
+// 	}
+
+// 	return false
+// }
+
+func FindInSlice(in []interface{}, id string) bool {
+	for _, v := range in {
+		if v == id {
+			return true
+		}
+	}
+
+	return false
+}
+
+func StringtoInterferance(s []string) []interface{} {
+	out := make([]interface{}, len(s))
+	for i, v := range s {
+		out[i] = v
+	}
+	return out
+}
+
+func NewJSON(data interface{}) ([]byte, error) {
+	bs, err := json.Marshal(data)
+	if err != nil {
+		log.Printf("[FATAL] Unable to Marshal request: %v", err)
+		return nil, err
+	}
+	return bs, nil
 }

@@ -10,32 +10,18 @@ import (
 
 	"github.com/febg/Climbtracker/gym"
 	"github.com/febg/Climbtracker/tools"
+	"github.com/febg/Climbtracker/user"
 
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 	_ "github.com/go-sql-driver/mysql"
 )
-
-// UserData represents the user climbing data from data base
-type UserData struct {
-	Name     string
-	Email    string
-	Password string
-	UserID   string
-	QrCode   string
-}
-
-// NewCheckIn contains checkin information
-type NewCheckIn struct {
-	Level  string
-	UserID string
-}
 
 type DataConfig struct {
 	IG *sync.WaitGroup
 }
 
 // CheckUserExistance looks if client exists in users table
-func CheckUserExistance(DB *sql.DB, uData UserData) (bool, error) {
+func CheckUserExistance(DB *sql.DB, uData user.UserData) (bool, error) {
 	log.Printf("-> [INFO] Cheking user existance in data base...")
 	if success, err := validateRagistration(DB, uData); success != true {
 		if err != nil {
@@ -50,7 +36,7 @@ func CheckUserExistance(DB *sql.DB, uData UserData) (bool, error) {
 }
 
 // RegisterUser handles the storage of new user in database
-func RegisterUser(DB *sql.DB, uData UserData) (bool, error) {
+func RegisterUser(DB *sql.DB, uData user.UserData) (bool, error) {
 	log.Printf("-> [INFO] Registering in data base...")
 	if success, err := sendUser(DB, uData); err != nil {
 		log.Printf("-> [ERROR] Unable to store user in database")
@@ -61,7 +47,7 @@ func RegisterUser(DB *sql.DB, uData UserData) (bool, error) {
 }
 
 // InitializeUserData creates a unique table for each user in database
-func InitializeUserData(DB *sql.DB, uData UserData) {
+func InitializeUserData(DB *sql.DB, uData user.UserData) {
 	log.Printf("-> [INFO] Initializing user information")
 	var initGroup sync.WaitGroup
 	dataInit := DataConfig{
@@ -81,7 +67,7 @@ func InitializeUserData(DB *sql.DB, uData UserData) {
 
 // NewUser handles user registration in MySQL data base
 func NewUser(DB *sql.DB, uData []byte) (bool, error) {
-	var data UserData
+	var data user.UserData
 	err := json.Unmarshal(uData, &data)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
@@ -121,7 +107,7 @@ func InitializeTables(tables []string) (int, error) {
 }
 
 func LogIn(DB *sql.DB, uData []byte) (string, error) {
-	var data UserData
+	var data user.UserData
 	err := json.Unmarshal(uData, &data)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
@@ -146,11 +132,10 @@ func ClimbingHistory(DB *sql.DB, uID string) (*gym.ClimbingData, error) {
 	cData := getClimbingData(DB, uID)
 
 	return cData, nil
-
 }
 
 func CheckIn(DB *sql.DB, d []byte) error {
-	var C NewCheckIn
+	var C user.NewCheckIn
 	err := json.Unmarshal(d, &C)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
@@ -167,5 +152,41 @@ func CheckIn(DB *sql.DB, d []byte) error {
 		return err
 	}
 	log.Printf("-> [INFO] Block recorded successfully")
+	return nil
+}
+
+func FriendRequest(DB *sql.DB, uID string, femail string) error {
+	err := validateUID(DB, uID)
+	if err != nil {
+		log.Printf("-> [ERROR] User not found: %v", err)
+		return err
+	}
+
+	fuID, err := validateFriendInfo(DB, femail)
+	if err != nil {
+		log.Printf("-> [ERROR] User not found: %v", err)
+		return err
+	}
+
+	err = checkUsersConnection(DB, uID, fuID)
+	if err != nil {
+		log.Printf("-> [ERROR] Friendship connection check: %v", err)
+		return err
+	}
+	err = createUsersConnection(DB, uID, fuID)
+	if err != nil {
+		log.Printf("-> [ERROR] Friendship connection: %v", err)
+	}
+	log.Printf("-> [INFO] Friendship connection recorded successfully")
+	return nil
+}
+
+func GetFriends(DB *sql.DB, uID string) error {
+	err := validateUID(DB, uID)
+	if err != nil {
+		log.Printf("-> [ERROR] User not found: %v", err)
+		return err
+	}
+
 	return nil
 }

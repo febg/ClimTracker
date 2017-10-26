@@ -10,8 +10,8 @@ func StandardRouter(c *Control) *mux.Router {
 	r.Methods("GET").Path("/login/{user_email}/{user_password}/").HandlerFunc(c.PostLogInUser)
 	r.Methods("GET").Path("/checkin/{user_id}/{level}").HandlerFunc(c.PostCheckIn)
 	r.Methods("GET").Path("/getall/{user_id}/").HandlerFunc(c.PostGetData)
-	r.Methods("GET").Path("/getfriends/{user_id}/").HandlerFunc(c.PostGetData)
-	r.Methods("GET").Path("/addfriend/{user_id}/{friend_email}/{qr}").HandlerFunc(c.PostGetData)
+	r.Methods("GET").Path("/getfriends/{user_id}/").HandlerFunc(c.PostGetFriends)
+	r.Methods("GET").Path("/addfriend/{user_id}/{user_email}/").HandlerFunc(c.PostAddFriend)
 	r.Methods("GET").Path("/recordpullup/{user_id}/{amount}").HandlerFunc(c.PostGetData)
 	return r
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/febg/Climbtracker/data"
 	"github.com/febg/Climbtracker/tools"
+	"github.com/febg/Climbtracker/user"
 	//"../data"
 	//"../tools"
 	"github.com/gorilla/mux"
@@ -20,7 +21,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[REQUEST] Registration request for user: %v", v["user_name"])
 	defer log.Printf("----------------------------------------")
 	defer log.Printf("[REQUEST] Registration request terminated")
-	uD := data.UserData{
+	uD := user.UserData{
 		Name:     v["user_name"],
 		Email:    v["user_email"],
 		Password: tools.EncryptPassword(v["user_password"]),
@@ -91,7 +92,7 @@ func (c *Control) PostGetData(w http.ResponseWriter, r *http.Request) {
 // PostLogInUser gets clients credentials from HTTP pPost request, compares it with existing credentials on database and grants or denies access
 func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
-	uD := data.UserData{
+	uD := user.UserData{
 		Name:     "",
 		Email:    v["user_email"],
 		Password: v["user_password"],
@@ -133,7 +134,7 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 // PostCheckIn handles request to store a climbing block
 func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
-	uD := data.NewCheckIn{
+	uD := user.NewCheckIn{
 		Level:  v["level"],
 		UserID: v["user_id"],
 	}
@@ -157,4 +158,42 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	}
 	data.CheckIn(c.DataBase, bs)
 	//Handle errors and respond to client
+}
+
+func (c *Control) PostGetFriends(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+	uID := v["user_id"]
+	log.Printf("[REQUEST] Friend list request for user: %v", uID)
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("[REQUEST] Friend list request terminated")
+
+	if uID == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("-> [ERROR] Information not complete")
+		fmt.Fprint(w, "ERROR: Information not complete")
+		return
+	}
+	//TODO Handle Error
+	data.GetFriends(c.DataBase, uID)
+
+}
+
+func (c *Control) PostAddFriend(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+	uID := v["user_id"]
+	fInfo := v["user_email"]
+	log.Printf("[REQUEST] Friendship connection request for users: %v, %v", uID, fInfo)
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("[REQUEST] Friendship connection request terminated")
+	if uID == "" || fInfo == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("[ERROR Resquest Information Not Complete]")
+		fmt.Fprintf(w, "Error: Friend Request Information Not Complete")
+		return
+	}
+	//TODO handle errors
+	err := data.FriendRequest(c.DataBase, uID, fInfo)
+	if err != nil {
+
+	}
 }
