@@ -12,22 +12,19 @@ type UserData struct {
 }
 
 type PrivateUser struct {
+	FInfo []PublicUser
+}
+
+type FriendList struct {
 	Friends []string
 }
 
 type PublicUser struct {
 	Name     string
 	Email    string
-	Qrcode   string
-	Climbing gym.PublicClimbingData
+	Public   string
+	Climbing gym.OverallData
 	//TODO Friends/Related friends implementation
-}
-
-type PrivateUserConfig struct {
-	Public string
-}
-
-type PublicUserConifg struct {
 }
 
 // NewCheckIn contains checkin information
@@ -38,4 +35,8 @@ type NewCheckIn struct {
 
 func (pu *PublicUser) PublicUserCongif() {
 
+}
+
+func (privU *PrivateUser) Append(pubU *PublicUser) {
+	//privU.FInfo = append(privU.FInfo, pubU)
 }

@@ -51,7 +51,7 @@ func sendUser(DB *sql.DB, uData user.UserData) (bool, error) {
 }
 
 func getUserPassword(DB *sql.DB, uData user.UserData) (string, string, error) {
-	rows, err := DB.Query(`SELECT password, uID FROM UserInformation WHERE Email="` + uData.Email + `";`)
+	rows, err := DB.Query(`SELECT password, uID FROM UserInformation WHERE Email=` + tools.QueryField(uData.Email) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user pwd query: %v", err)
 		return "", "", err
@@ -74,7 +74,60 @@ func getUserPassword(DB *sql.DB, uData user.UserData) (string, string, error) {
 	return pass, id, err
 }
 
-func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
+func getPublicProfile(DB *sql.DB, uID string, pubUser *user.PublicUser) error {
+	log.Printf("-> [INFO] Obtaining %v Public Profile..", uID)
+	rows, err := DB.Query(`SELECT Name, Email, Public FROM UserInformation WHERE uID =` + tools.QueryField(uID) + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] public profile query: %v", err)
+		return err
+	}
+	defer rows.Close()
+	var name string
+	var email string
+	var public string
+
+	for rows.Next() {
+		err = rows.Scan(&name, &email, &public)
+		if err != nil {
+			log.Printf("-> [ERROR] Publi Profile SQL response: %v", err)
+			return err
+		}
+
+	}
+	if name == "" || email == "" || public == "" {
+		return errors.New("Public Profile Data not complete")
+	}
+
+	pubUser.Name = name
+	pubUser.Email = email
+	pubUser.Public = public
+	log.Printf("-> [INFO] Public Profile successfully obtained")
+
+	return nil
+}
+
+func getFriendList(DB *sql.DB, uID string, privUser *user.FriendList) error {
+	log.Printf("-> [INFO] Obtaining friend list..")
+	rows, err := DB.Query(`SELECT uID2 FROM UsersConnections WHERE uID1 = ` + tools.QueryField(uID) + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] Get friends data query: %v", err)
+		return err
+	}
+	defer rows.Close()
+	var uID2 string
+	for rows.Next() {
+		err = rows.Scan(&uID2)
+		if err != nil {
+			log.Printf("-> [ERROR] SQL response: %v", err)
+			return err
+		}
+		privUser.Friends = append(privUser.Friends, uID2)
+	}
+	log.Printf("-> [INFO] Friend list obtained successfully..")
+	return nil
+}
+
+func getClimbingData(DB *sql.DB, uID string) []gym.DayData {
 	rows, err := DB.Query(`SELECT * FROM ClimbingSessions WHERE uID = ` + tools.QueryField(uID) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
@@ -97,15 +150,16 @@ func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
 	}
 
 	cData := gym.ClimbingData{}
+	data := []gym.DayData{}
 	for rows.Next() {
 		err = rows.Scan(scanArgs...)
 		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
+			return nil // proper error handling instead of panic in your app
 		}
 
 		dData := gym.DayData{
 			Index: string(values[0]),
-			Date:  string(values[0]),
+			Date:  string(values[1]),
 			UId:   string(values[2]),
 			V1:    string(values[3]),
 			V2:    string(values[4]),
@@ -115,11 +169,92 @@ func getClimbingData(DB *sql.DB, uID string) *gym.ClimbingData {
 			V6:    string(values[8]),
 		}
 
+		data = append(data, dData)
 		cData.Append(dData)
 
 	}
+	return data
+}
 
-	return &cData
+func getClimbingStats(DB *sql.DB, uID string, pubUser *user.PublicUser) error {
+	log.Printf("-> [INFO] Obtaining %v Climbing Stats..", uID)
+	rows, err := DB.Query(`SELECT * FROM ClimbingStats WHERE uID = ` + tools.QueryField(uID) + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
+		return nil
+	}
+	defer rows.Close()
+	// Get column names
+	columns, err := rows.Columns()
+	if err != nil {
+		log.Printf("-> [ERROR] Get user climbing data query: %v", err)
+		return nil // proper error handling instead of panic in your app
+	}
+	values := make([]sql.RawBytes, len(columns))
+	scanArgs := make([]interface{}, len(values))
+	for i := range values {
+		scanArgs[i] = &values[i]
+	}
+	dData := gym.OverallData{}
+	for rows.Next() {
+		err = rows.Scan(scanArgs...)
+		if err != nil {
+			return nil // proper error handling instead of panic in your app
+		}
+		dData = gym.OverallData{
+			SDate: string(values[1]),
+			MV1:   string(values[3]),
+			MV2:   string(values[4]),
+			MV3:   string(values[5]),
+			MV4:   string(values[6]),
+			MV5:   string(values[7]),
+			MV6:   string(values[8]),
+			Total: string(values[9]),
+		}
+	}
+	err = getPullUpStats(DB, uID, &dData)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to obtain Pullup stats for user: %v", uID)
+		pubUser.Climbing = dData
+		return err
+	}
+	pubUser.Climbing = dData
+	if dData.SDate == "" {
+		log.Printf("-> [ERROR] Unable to obtain climbing stats for user: %v", uID)
+		return errors.New("Climbing Stats Records Do Not Exist")
+	}
+	log.Printf("-> [INFO] Climbings stats Obtained Successfully")
+	return nil
+}
+
+func getPullUpStats(DB *sql.DB, uID string, oD *gym.OverallData) error {
+	log.Printf("-> [INFO] Obtaining %v PullUp Stats..", uID)
+	rows, err := DB.Query(`SELECT Date, Count, Max FROM PullUpDB WHERE uID =` + tools.QueryField(uID) + `;`)
+	if err != nil {
+		log.Printf("-> [ERROR] Get Pullup Stats query: %v", err)
+		return err
+	}
+	defer rows.Close()
+	var date string
+	var count string
+	var max string
+
+	for rows.Next() {
+		err = rows.Scan(&date, &count, &max)
+		if err != nil {
+			log.Printf("-> [ERROR] Get Pullup Stats SQL response: %v", err)
+			return err
+		}
+
+	}
+	if date == "" || count == "" || max == "" {
+		return errors.New("Pull-Up Data not complete")
+	}
+
+	oD.PDate = date
+	oD.PCount = count
+	oD.PMax = max
+	return nil
 }
 
 func validateUID(DB *sql.DB, uID string) error {

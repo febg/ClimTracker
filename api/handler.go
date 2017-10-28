@@ -174,7 +174,23 @@ func (c *Control) PostGetFriends(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//TODO Handle Error
-	data.GetFriends(c.DataBase, uID)
+	fD, err := data.GetFriends(c.DataBase, uID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Unable to obtain friends information"))
+		return
+	}
+
+	log.Printf("-> [INFO] Encoding friends data...")
+	b, err := json.Marshal(fD)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Internal Server Error"))
+		log.Printf("[FATAL] Unable to marshal request: %v", err)
+		return
+	}
+	log.Printf("-> [INFO] Friends data sent to client successfully")
+	fmt.Fprint(w, string(b))
 
 }
 

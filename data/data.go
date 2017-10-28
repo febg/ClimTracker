@@ -129,9 +129,11 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 
 // ClimbingHistory gets all climbing history for user
 func ClimbingHistory(DB *sql.DB, uID string) (*gym.ClimbingData, error) {
-	cData := getClimbingData(DB, uID)
-
-	return cData, nil
+	dData := getClimbingData(DB, uID)
+	cData := gym.ClimbingData{
+		Data: dData,
+	}
+	return &cData, nil
 }
 
 func CheckIn(DB *sql.DB, d []byte) error {
@@ -181,12 +183,47 @@ func FriendRequest(DB *sql.DB, uID string, femail string) error {
 	return nil
 }
 
-func GetFriends(DB *sql.DB, uID string) error {
+func GetFriends(DB *sql.DB, uID string) (*user.PrivateUser, error) {
 	err := validateUID(DB, uID)
 	if err != nil {
 		log.Printf("-> [ERROR] User not found: %v", err)
+		return nil, err
+	}
+	//TODO change: intead of privUser just slice.. make fIds private
+	friendList := user.FriendList{}
+	privUser := user.PrivateUser{}
+	err = getFriendList(DB, uID, &friendList)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to get connections information")
+		return nil, err
+	}
+	var friendsGroup sync.WaitGroup
+	getFData := DataConfig{
+		IG: &friendsGroup,
+	}
+	for _, v := range friendList.Friends {
+		friendsGroup.Add(1)
+		go getFData.getPublicData(DB, v, &privUser)
+	}
+	friendsGroup.Wait()
+
+	//err = getPublicData(DB, uID, privUser)
+	return &privUser, nil
+}
+
+func (d *DataConfig) getPublicData(DB *sql.DB, uID string, privUser *user.PrivateUser) error {
+	defer d.IG.Done()
+	pubUser := user.PublicUser{}
+	err := getPublicProfile(DB, uID, &pubUser)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to get Public Profile: %v", err)
 		return err
 	}
-
+	err = getClimbingStats(DB, uID, &pubUser)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to get Climbing Stats: %v", err)
+		return err
+	}
+	privUser.FInfo = append(privUser.FInfo, pubUser)
 	return nil
 }

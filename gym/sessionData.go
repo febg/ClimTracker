@@ -24,14 +24,17 @@ type DayData struct {
 	V6    string `json:"V6"`
 }
 type OverallData struct {
-	MV1     string `json:"MV1"`
-	MV2     string `json:"MV2"`
-	MV3     string `json:"MV3"`
-	MV4     string `json:"MV4"`
-	MV5     string `json:"MV5"`
-	MV6     string `json:"MV6"`
-	Total   string `json:"Total"`
-	PullMax string `jason:"PullMax"`
+	SDate  string `json:"StatsDate"`
+	MV1    string `json:"MV1"`
+	MV2    string `json:"MV2"`
+	MV3    string `json:"MV3"`
+	MV4    string `json:"MV4"`
+	MV5    string `json:"MV5"`
+	MV6    string `json:"MV6"`
+	Total  string `json:"Total"`
+	PDate  string `json:"Pullup Date"`
+	PCount string `json:"PullCount"`
+	PMax   string `jason:"PullMax"`
 }
 
 type PullUpData struct {
