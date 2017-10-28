@@ -12,6 +12,6 @@ func StandardRouter(c *Control) *mux.Router {
 	r.Methods("GET").Path("/getall/{user_id}/").HandlerFunc(c.PostGetData)
 	r.Methods("GET").Path("/getfriends/{user_id}/").HandlerFunc(c.PostGetFriends)
 	r.Methods("GET").Path("/addfriend/{user_id}/{user_email}/").HandlerFunc(c.PostAddFriend)
-	r.Methods("GET").Path("/recordpullup/{user_id}/{amount}").HandlerFunc(c.PostGetData)
+	r.Methods("GET").Path("/recordpullup/{user_id}/{amount}").HandlerFunc(c.PostRecordPullUp)
 	return r
 }
