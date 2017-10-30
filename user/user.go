@@ -33,6 +33,16 @@ type NewCheckIn struct {
 	UserID string
 }
 
+type NewPullUp struct {
+	UserID string
+	Count  string
+}
+
+type NewUser struct {
+	EmailError    error
+	InternalError error
+}
+
 func (pu *PublicUser) PublicUserCongif() {
 
 }

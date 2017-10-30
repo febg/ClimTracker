@@ -9,8 +9,6 @@ import (
 	"github.com/febg/Climbtracker/data"
 	"github.com/febg/Climbtracker/tools"
 	"github.com/febg/Climbtracker/user"
-	//"../data"
-	//"../tools"
 	"github.com/gorilla/mux"
 	"github.com/satori/go.uuid"
 )
@@ -30,19 +28,19 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 
 	if uD.Name == "" || uD.Email == "" || uD.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprint(w, "ERROR: Registration information given not complete")
+		fmt.Fprint(w, "ERROR: Registration information not complete")
 		return
 	}
 	b, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, string("Internal Server Error"))
-		log.Printf("[FATAL] Unable to Marshal request: %v", err)
+		fmt.Fprint(w, "Internal Server Error")
+		log.Printf("-> [ERROR] Unable to Marshal request: %v", err)
 		return
 	}
 
-	if newUser, err := data.NewUser(c.DataBase, b); newUser != true {
-		if err != nil {
+	if newUser, err := data.NewUser(c.DataBase, b); err != nil {
+		if newUser == false {
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprint(w, "Internal Server error")
 			return
@@ -55,6 +53,7 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// PostGetData gathers user information from climbing data base and respons to clients with a JASON representation of that data
 func (c *Control) PostGetData(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uID := v["user_id"]
@@ -89,7 +88,7 @@ func (c *Control) PostGetData(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// PostLogInUser gets clients credentials from HTTP pPost request, compares it with existing credentials on database and grants or denies access
+// PostLogInUser gets clients credentials from HTTP Post request, compares it with existing credentials on database and grants or denies access
 func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uD := user.UserData{
@@ -160,6 +159,7 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	//Handle errors and respond to client
 }
 
+// PostGetFriends gathers a list of the clients friends (connections) and their public profile/informtion
 func (c *Control) PostGetFriends(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uID := v["user_id"]
@@ -194,6 +194,7 @@ func (c *Control) PostGetFriends(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// PostAddFriend creates a connection (friendship) between two clients and stores it in main data base
 func (c *Control) PostAddFriend(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
 	uID := v["user_id"]
@@ -212,4 +213,34 @@ func (c *Control) PostAddFriend(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 	}
+}
+
+// PostRecordPullUp handles rquest from clients to store new pull up information in data base
+func (c *Control) PostRecordPullUp(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+
+	nP := user.NewPullUp{
+		Count:  v["user_id"],
+		UserID: v["count"],
+	}
+
+	log.Printf("[REQUEST] Record pullup request for user: %v", nP.UserID)
+	defer log.Printf("----------------------------------------")
+	defer log.Printf("[REQUEST] Record pull up request terminated")
+
+	if nP.Count == "" || nP.UserID == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("-> [ERROR] Record pull up information not complete")
+		fmt.Fprint(w, "ERROR: Record pull up information not complete")
+		return
+	}
+	bs, err := json.Marshal(nP)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, string("Internal Server Error"))
+		log.Printf("[FATAL] Unable to Marshal request: %v", err)
+		return
+	}
+	data.NewPullUp(c.DataBase, bs)
+	//Handle errors and respond to client
 }

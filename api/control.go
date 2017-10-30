@@ -4,13 +4,10 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/jasonlvhit/gocron"
-
 	"github.com/febg/Climbtracker/data"
-	//"../data"
 )
 
-// Control is
+// Control manages, configures and starts the server's datastore and main configs
 type Control struct {
 	Config   ControlConfig
 	DataBase *sql.DB
@@ -48,27 +45,4 @@ func NewControl(config ControlConfig) (*Control, error) {
 	log.Printf("[LOG] Stablished Connection to local MySQL server")
 
 	return &c, nil
-}
-
-// InitCron Initializes cron to schedulle tasks
-func initCron(time int, t string) error {
-	var task interface{} = t
-	log.Printf("[LOG] Initialized cron for task: %v, every %v minutes", task, time)
-	gocron.Every(2).Seconds().Do(tasktest)
-	<-gocron.Start()
-	return nil
-}
-
-//StartUpdateTimer sdfhdfg dfgh  dfgh
-func UpdateData() {
-	log.Printf("[LOG] Update Timmer Initialized")
-	return
-}
-
-func tasktest() {
-	log.Printf("Cron")
-}
-
-func test() {
-	log.Printf("test")
 }

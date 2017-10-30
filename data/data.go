@@ -6,51 +6,47 @@ import (
 	"log"
 	"sync"
 
-	//"../tools"
-
 	"github.com/febg/Climbtracker/gym"
 	"github.com/febg/Climbtracker/tools"
 	"github.com/febg/Climbtracker/user"
-
 	//"github.com/go-sql-driver/mysql" used as MySQL driver only
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type DataConfig struct {
+// DConfig data-type is used for creating go routines groups
+type DConfig struct {
 	IG *sync.WaitGroup
 }
 
 // CheckUserExistance looks if client exists in users table
-func CheckUserExistance(DB *sql.DB, uData user.UserData) (bool, error) {
-	log.Printf("-> [INFO] Cheking user existance in data base...")
-	if success, err := validateRagistration(DB, uData); success != true {
-		if err != nil {
-			log.Printf("-> [ERROR] Unable to validate registration")
-			return false, err
-		}
-		log.Printf("-> [ERROR] User already in data base")
-		return false, nil
-	}
-	log.Printf("-> [INFO] User not registered, preparing to store data")
-	return true, nil
-}
+// func CheckUserExistance(DB *sql.DB, uData user.UserData) error {
+// 	log.Printf("-> [INFO] Cheking user existance in data base...")
+// 	err := validateRagistration(DB, uData)
+// 	if err != nil {
+// 		log.Printf("-> [ERROR] Unable to validate registration")
+// 		return err
+// 	}
+// 	log.Printf("-> [INFO] User not registered, preparing to store data")
+// 	return nil
+// }
 
 // RegisterUser handles the storage of new user in database
-func RegisterUser(DB *sql.DB, uData user.UserData) (bool, error) {
-	log.Printf("-> [INFO] Registering in data base...")
-	if success, err := sendUser(DB, uData); err != nil {
-		log.Printf("-> [ERROR] Unable to store user in database")
-		return success, err
-	}
-	log.Printf("-> [INFO] User registered in database successfully")
-	return true, nil
-}
+// func RegisterUser(DB *sql.DB, uData user.UserData) error {
+// 	log.Printf("-> [INFO] Registering in data base...")
+// 	err := sendUser(DB, uData)
+// 	if err != nil {
+// 		log.Printf("-> [ERROR] Unable to store user in database")
+// 		return err
+// 	}
+// 	log.Printf("-> [INFO] User registered in database successfully")
+// 	return nil
+// }
 
 // InitializeUserData creates a unique table for each user in database
 func InitializeUserData(DB *sql.DB, uData user.UserData) {
 	log.Printf("-> [INFO] Initializing user information")
 	var initGroup sync.WaitGroup
-	dataInit := DataConfig{
+	dataInit := DConfig{
 		IG: &initGroup,
 	}
 	initGroup.Add(1)
@@ -66,27 +62,29 @@ func InitializeUserData(DB *sql.DB, uData user.UserData) {
 }
 
 // NewUser handles user registration in MySQL data base
-func NewUser(DB *sql.DB, uData []byte) (bool, error) {
-	var data user.UserData
-	err := json.Unmarshal(uData, &data)
+func NewUser(DB *sql.DB, b []byte) (bool, error) {
+	var uData user.UserData
+	err := json.Unmarshal(b, &uData)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return false, err
 	}
-	if s1, err := CheckUserExistance(DB, data); err != nil {
-		return false, err
-	} else if s1 == true {
-		data.QrCode = tools.GenerateQrCode(data.Email)
-		if s2, err := RegisterUser(DB, data); s2 != true {
-			if err != nil {
-				return s2, err
-			}
-			return s2, nil
-		}
-		InitializeUserData(DB, data)
+
+	err = validateRagistration(DB, uData)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to validate registration")
 		return true, err
 	}
-	return false, nil
+
+	err = sendUser(DB, uData)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to store user in database")
+		return false, err
+	}
+
+	InitializeUserData(DB, uData)
+
+	return true, nil
 }
 
 // NewMySQL creates a connection to a MySQL database on AWS
@@ -99,11 +97,6 @@ func NewMySQL() (*sql.DB, error) {
 func NewLocalMySQL() (*sql.DB, error) {
 	db, err := sql.Open("mysql", "root:1692Ubc!@tcp(localhost:3306)/test3?charset=utf8")
 	return db, err
-}
-
-func InitializeTables(tables []string) (int, error) {
-
-	return 0, nil
 }
 
 func LogIn(DB *sql.DB, uData []byte) (string, error) {
@@ -157,6 +150,28 @@ func CheckIn(DB *sql.DB, d []byte) error {
 	return nil
 }
 
+func NewPullUp(DB *sql.DB, d []byte) error {
+	var P user.NewPullUp
+	err := json.Unmarshal(d, &P)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to Unmarshal pull up information: %v", err)
+		return err
+	}
+	err = validateUID(DB, P.UserID)
+	if err != nil {
+		log.Printf("-> [ERROR] User not found: %v", err)
+		return err
+	}
+	err = recordPullUp(DB, P)
+	if err != nil {
+		log.Printf("-> [ERROR] Unable to record block entry")
+		return err
+	}
+	log.Printf("-> [INFO] Block recorded successfully")
+	return nil
+	return nil
+}
+
 func FriendRequest(DB *sql.DB, uID string, femail string) error {
 	err := validateUID(DB, uID)
 	if err != nil {
@@ -198,7 +213,7 @@ func GetFriends(DB *sql.DB, uID string) (*user.PrivateUser, error) {
 		return nil, err
 	}
 	var friendsGroup sync.WaitGroup
-	getFData := DataConfig{
+	getFData := DConfig{
 		IG: &friendsGroup,
 	}
 	for _, v := range friendList.Friends {
@@ -211,7 +226,7 @@ func GetFriends(DB *sql.DB, uID string) (*user.PrivateUser, error) {
 	return &privUser, nil
 }
 
-func (d *DataConfig) getPublicData(DB *sql.DB, uID string, privUser *user.PrivateUser) error {
+func (d *DConfig) getPublicData(DB *sql.DB, uID string, privUser *user.PrivateUser) error {
 	defer d.IG.Done()
 	pubUser := user.PublicUser{}
 	err := getPublicProfile(DB, uID, &pubUser)
