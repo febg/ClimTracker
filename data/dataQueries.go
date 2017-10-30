@@ -32,12 +32,12 @@ func validateRagistration(DB *sql.DB, uData user.UserData) error {
 		return nil
 	}
 	log.Printf("-> [ERROR] User already registered in data base")
-	return errors.New("User already registered in data base")
+	return errors.New("In DB")
 }
 
 // SendUser prepares and executes MySQL query to store user in data base
 func sendUser(DB *sql.DB, uData user.UserData) error {
-	log.Printf("-> [INFO] Registering in data base...")
+	log.Printf("-> [INFO] Registering user in data base...")
 	//myQuery := `INSERT INTO UserInformation VALUES (NULL,` + `'` + tools.GetDate() + `','` + uData.Name + `','` + uData.Password + `','` + uData.Email + `','` + uData.UserID + `', 1);`
 	stmt, err := DB.Prepare(`INSERT INTO UserInformation VALUES (NULL,` + `'` + tools.GetDate() + `','` + uData.Name + `','` + uData.Password + `','` + uData.Email + `','` + uData.UserID + `', 1);`)
 	if err != nil {
@@ -55,6 +55,7 @@ func sendUser(DB *sql.DB, uData user.UserData) error {
 }
 
 func getUserPassword(DB *sql.DB, uData user.UserData) (string, string, error) {
+	log.Printf("-> [INFO] Obtaining user's stored password")
 	rows, err := DB.Query(`SELECT password, uID FROM UserInformation WHERE Email=` + tools.QueryField(uData.Email) + `;`)
 	if err != nil {
 		log.Printf("-> [ERROR] Get user pwd query: %v", err)
@@ -394,6 +395,7 @@ func validateFriendInfo(DB *sql.DB, email string) (string, error) {
 }
 
 func (d *DConfig) initializeUserTable(DB *sql.DB, uData user.UserData) {
+	log.Printf("-> [INFO] Initializing block table")
 	defer d.IG.Done()
 	myquery := `INSERT INTO ClimbingSessions (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)
@@ -413,6 +415,7 @@ func (d *DConfig) initializeUserTable(DB *sql.DB, uData user.UserData) {
 }
 
 func (d *DConfig) initializeClimbingstats(DB *sql.DB, uData user.UserData) {
+	log.Printf("-> [INFO] Initializing Climbing stats table")
 	defer d.IG.Done()
 	myquery := `INSERT INTO ClimbingStats (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL,` + tools.QueryField(tools.GetDate()) + `,` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)
@@ -431,6 +434,7 @@ func (d *DConfig) initializeClimbingstats(DB *sql.DB, uData user.UserData) {
 }
 
 func (d *DConfig) initializePullUp(DB *sql.DB, uData user.UserData) {
+	log.Printf("-> [INFO] Initializing pull-up")
 	defer d.IG.Done()
 	myquery := `INSERT INTO PullUpDB (` + tools.QueryTable("index") + `, ` + tools.QueryTable("Date") + `, ` + tools.QueryTable("uID") + `) VALUES (NULL, ` + tools.QueryField(tools.GetDate()) + `, ` + tools.QueryField(uData.UserID) + `);`
 	stmt, err := DB.Prepare(myquery)

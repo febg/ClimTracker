@@ -62,29 +62,29 @@ func InitializeUserData(DB *sql.DB, uData user.UserData) {
 }
 
 // NewUser handles user registration in MySQL data base
-func NewUser(DB *sql.DB, b []byte) (bool, error) {
+func NewUser(DB *sql.DB, b []byte) error {
 	var uData user.UserData
 	err := json.Unmarshal(b, &uData)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
-		return false, err
+		return err
 	}
 
 	err = validateRagistration(DB, uData)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to validate registration")
-		return true, err
+		return err
 	}
 
 	err = sendUser(DB, uData)
 	if err != nil {
 		log.Printf("-> [ERROR] Unable to store user in database")
-		return false, err
+		return err
 	}
 
 	InitializeUserData(DB, uData)
 
-	return true, nil
+	return nil
 }
 
 // NewMySQL creates a connection to a MySQL database on AWS
@@ -106,7 +106,7 @@ func LogIn(DB *sql.DB, uData []byte) (string, error) {
 		log.Printf("-> [ERROR] Unable to Unmarshal user information: %v", err)
 		return "", err
 	}
-	log.Printf("-> [LOG] Obtaining user's stored password")
+
 	hpwd, uID, err := getUserPassword(DB, data)
 	if err != nil {
 		log.Printf("->[ERROR] Unable to obtained stored password: %v", err)

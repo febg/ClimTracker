@@ -39,14 +39,17 @@ func (c *Control) PostRegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if newUser, err := data.NewUser(c.DataBase, b); err != nil {
-		if newUser == false {
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(w, "Internal Server error")
+	err = data.NewUser(c.DataBase, b)
+	if err != nil {
+		if err.Error() == "In DB" {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprintf(w, "Error: Email already registered in data base, use another email or log in")
+
 			return
 		}
-		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "Error: Email already registered in data base, use another email or log in")
+
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, "Internal Server error")
 		return
 	}
 	fmt.Fprintf(w, "Success: UserID: %v", uD.UserID)
@@ -118,7 +121,7 @@ func (c *Control) PostLogInUser(w http.ResponseWriter, r *http.Request) {
 	uID, err := data.LogIn(c.DataBase, b)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, string("Internal Server Error"))
+		fmt.Fprint(w, "Internal Server Error")
 		return
 	}
 	if uID == "wpwd" {
@@ -151,12 +154,16 @@ func (c *Control) PostCheckIn(w http.ResponseWriter, r *http.Request) {
 	bs, err := json.Marshal(uD)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, string("Internal Server Error"))
+		fmt.Fprint(w, "Internal Server Error")
 		log.Printf("[FATAL] Unable to Marshal request: %v", err)
 		return
 	}
 	data.CheckIn(c.DataBase, bs)
-	//Handle errors and respond to client
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, "Error: Unable to check in")
+	}
+	fmt.Fprintf(w, "SUCCESS: Check in registered: %v", uD.Level)
 }
 
 // PostGetFriends gathers a list of the clients friends (connections) and their public profile/informtion
@@ -204,15 +211,17 @@ func (c *Control) PostAddFriend(w http.ResponseWriter, r *http.Request) {
 	defer log.Printf("[REQUEST] Friendship connection request terminated")
 	if uID == "" || fInfo == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("[ERROR Resquest Information Not Complete]")
-		fmt.Fprintf(w, "Error: Friend Request Information Not Complete")
+		log.Printf("[ERROR Resquest information not complete]")
+		fmt.Fprintf(w, "ERROR: Friend request information not complete")
 		return
 	}
 	//TODO handle errors
 	err := data.FriendRequest(c.DataBase, uID, fInfo)
 	if err != nil {
-
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "ERROR: Friend request not completed")
 	}
+	fmt.Fprintf(w, "SUCCESS: Friend request complete")
 }
 
 // PostRecordPullUp handles rquest from clients to store new pull up information in data base
